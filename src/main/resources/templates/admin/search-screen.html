@@ -116,56 +116,11 @@
                             </button>
                         </span>
             </div>    <div class="scrollbar-sidebar">
-            <div class="app-sidebar__inner">
-                <ul class="vertical-nav-menu">
-                    <li class="app-sidebar__heading">Dashboards</li>
 
-                    <li>
-                        <a th:href="@{/orders.html}">
-                            <i class="metismenu-icon pe-7s-cart"></i>
-                            Orders
-                        </a>
-                    </li>
-                    <li>
-                        <a th:href="@{/manage-customer.html}">
-                            <i class="metismenu-icon pe-7s-users"></i>
-                            Manage Customer
-                        </a>
-                    </li>
-                    <li>
-                        <a th:href="@{/manage-books.html}">
-                            <i class="metismenu-icon pe-7s-notebook"></i>
-                            Manage Books
-                        </a>
-                    </li>
-                    <li>
-                        <a th:href="@{manage-categories.html}">
-                            <i class="metismenu-icon pe-7s-photo-gallery"></i>
-                            Manage Categories
-                        </a>
-                    </li>
-                    <li>
-                        <a th:href="@{/send-mail.html}">
-                            <i class="metismenu-icon pe-7s-mail"></i>
-                            Send Mail
-                        </a>
-                    </li>
-                    <li>
-                        <a th:href="@{/delivery-situations.html}">
-                            <i class="metismenu-icon pe-7s-map-2"></i>
-                            Delivery Situations
-                        </a>
-                    </li>
-                    <li>
-                        <a th:href="@{/manage-cargo-firms.html}">
-                            <i class="metismenu-icon pe-7s-box2"></i>
-                            Manage Cargo Firms
-                        </a>
-                    </li>
-
-
-                </ul>
+            <div  th:insert="admin/side-navbar  :: side-navbar-admin">
+                <!-- side navbar reached from outside -->
             </div>
+
         </div>
         </div>
 

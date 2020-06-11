@@ -48,6 +48,7 @@ public class BookDAOImp implements BookDAO {
 
     @Override
     public Page<Book> findAll(Pageable pageable) {
+        System.out.println("HI");
         return null;
     }
 
@@ -203,5 +204,30 @@ public class BookDAOImp implements BookDAO {
         List<Book> books = theQuery.getResultList();
 
         return books;
+    }
+
+    @Override
+    public Page<Book> findByTitle(String title, Pageable pageable) {
+        return null;
+    }
+
+    @Override
+    public Page<Book> findByTitleFloat(float number, Pageable pageable) {
+        return null;
+    }
+
+    @Override
+    public Page<Book> findBySubcategory(int id, Pageable pageable) {
+        return null;
+    }
+
+    @Override
+    public Page<Book> findByCategory(int id, Pageable pageable) {
+        return null;
+    }
+
+    @Override
+    public Page<Book> findCampaign(Pageable pageable) {
+        return null;
     }
 }

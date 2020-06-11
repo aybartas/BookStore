@@ -1,6 +1,8 @@
 package com.BoomBook.Model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 
@@ -17,8 +19,8 @@ public class Subcategory {
     @Column(name="title")
     private String title;
 
-
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "category_id")
     private Category category;
 
@@ -53,7 +55,7 @@ public class Subcategory {
 
     @Override
     public String toString() {
-        return "Employee [id=" + id + ", Title=" + title;
+        return "Subcategory [id=" + id + ", Title=" + title;
     }
 
 

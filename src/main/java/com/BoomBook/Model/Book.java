@@ -6,6 +6,7 @@ import org.hibernate.annotations.CascadeType;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 
 @Entity
@@ -49,12 +50,25 @@ public class Book {
     @Column(name="count")
     private int count;
 
-
     @Column(name="price")
     private float price;
 
-    @OneToOne(mappedBy = "book")
+    @Column(name="price_with_campaign")
+    private float priceWithCampaign;
+
+
+    @OneToOne(cascade = javax.persistence.CascadeType.ALL,mappedBy = "book")
     private Campaign campaign;
+
+
+    @OneToMany(cascade = javax.persistence.CascadeType.ALL)
+    @JoinColumn(name = "book_id")
+    private List<Cart> carts;
+
+    @OneToMany(cascade = javax.persistence.CascadeType.ALL)
+    @JoinColumn(name = "book_id")
+    private List<BookComment> comments;
+
 
     //Constructors
 
@@ -77,8 +91,32 @@ public class Book {
         this.subject = subject;
         this.count = count;
         this.price = price;
-        System.out.println("merhaba");
+
         this.toString();
+    }
+
+    public List<BookComment> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<BookComment> comments) {
+        this.comments = comments;
+    }
+
+    public float getPriceWithCampaign() {
+        return priceWithCampaign;
+    }
+
+    public void setPriceWithCampaign(float priceWithCampaign) {
+        this.priceWithCampaign = priceWithCampaign;
+    }
+
+    public List<Cart> getCarts() {
+        return carts;
+    }
+
+    public void setCarts(List<Cart> carts) {
+        this.carts = carts;
     }
 
     public Book(Subcategory subcategory, String authorName, int year, String title,

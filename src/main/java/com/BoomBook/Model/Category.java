@@ -1,6 +1,7 @@
 package com.BoomBook.Model;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name="category")
@@ -17,6 +18,9 @@ public class Category {
     private String title;
 
 
+    @OneToMany(cascade=CascadeType.ALL)
+    @JoinColumn(name="category_id")
+    private List<Subcategory> subcategoryList;
     // define constructors
 
     public Category() {
@@ -36,7 +40,7 @@ public class Category {
 
     @Override
     public String toString() {
-        return "Employee [id=" + id + ", title=" + title +"]";
+        return "Category [id=" + id + ", title=" + title +"]";
     }
 
 
@@ -56,6 +60,15 @@ public class Category {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+
+    public List<Subcategory> getSubcategoryList() {
+        return subcategoryList;
+    }
+
+    public void setSubcategoryList(List<Subcategory> subcategoryList) {
+        this.subcategoryList = subcategoryList;
     }
 }
 

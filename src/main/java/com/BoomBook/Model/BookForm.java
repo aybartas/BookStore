@@ -3,15 +3,35 @@ package com.BoomBook.Model;
 public class BookForm {
     private int id;
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
     private int subcategory;
+
+    @Override
+    public String toString() {
+        return "BookForm{" +
+                "id=" + id +
+                ", subcategory=" + subcategory +
+                ", category=" + category +
+                ", subcategoryForUpdate='" + subcategoryForUpdate + '\'' +
+                ", categoryForUpdate='" + categoryForUpdate + '\'' +
+                ", authorName='" + authorName + '\'' +
+                ", year=" + year +
+                ", title='" + title + '\'' +
+                ", isbn='" + isbn + '\'' +
+                ", imageURL='" + imageURL + '\'' +
+                ", publisherName='" + publisherName + '\'' +
+                ", subject='" + subject + '\'' +
+                ", count=" + count +
+                ", price=" + price +
+                '}';
+    }
+
+    // New added after aybar
+    private int category;
+
+    private String subcategoryForUpdate;
+
+    // New added after aybar
+    private String categoryForUpdate;
 
     private String authorName;
 
@@ -109,5 +129,38 @@ public class BookForm {
 
     public void setPrice(float price) {
         this.price = price;
+    }
+
+    public int getCategory() {
+        return category;
+    }
+
+    public void setCategory(int category) {
+        this.category = category;
+    }
+
+
+    public String getSubcategoryForUpdate() {
+        return subcategoryForUpdate;
+    }
+
+    public void setSubcategoryForUpdate(String subcategoryForUpdate) {
+        this.subcategoryForUpdate = subcategoryForUpdate;
+    }
+
+    public String getCategoryForUpdate() {
+        return categoryForUpdate;
+    }
+
+    public void setCategoryForUpdate(String categoryForUpdate) {
+        this.categoryForUpdate = categoryForUpdate;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

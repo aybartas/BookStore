@@ -53,47 +53,19 @@
                         </span>
                     </button>
                 </span>
-
-            </div>
-            <div class="app-header__content">
-                <div class="app-header-left">
-                    <form  class="form-inline mr-auto" th:action="@{/managebooks/searchbook}" th:object="${searchForm}" method="POST">
-                        <input class="form-control" th:field="*{searchKey}"  type="text" placeholder="Type to search" aria-label="Search">
-                        <button class="btn btn-success btn-rounded btn-sm my-0 ml-sm-2" type="submit">Search</button>
-                    </form>
-                </div>
-                <div class="app-header-left">
-                    <div class="search-wrapper">
-                        <div class="input-holder">
-                            <input type="text" class="search-input" placeholder="Type to search">
-                            <button class="search-icon"><span></span></button>
-                        </div>
-                        <button class="close"></button>
-                    </div>
-                </div>
-                <div class="app-header-right">
-                    <div class="header-btn-lg pr-0">
-                        <div class="widget-content p-0">
-                            <div class="widget-content-wrapper">
-                                 
-                                <div class="widget-content-right header-user-info ml-3">
-                                    <button class="mb-2 mr-2 btn btn-danger">
-                                        <i class="nav-link-icon fa fa-cog"></i>
-                                            <font color="white">Log Out</font>
-                                        </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>        </div>
-            </div>
-
         </div>
         <div class="app-header__content">
 
 
 
-
-
+            <!-- search BOX -->
+        <div class="app-header-left">
+            <form  class="form-inline mr-auto" th:action="@{/managebooks/searchbook}" th:object="${searchForm}" method="POST">
+                <input class="form-control" th:field="*{searchKey}"  type="text" placeholder="Type to search" aria-label="Search">
+                <button class="btn btn-success btn-rounded btn-sm my-0 ml-sm-2" type="submit">Search</button>
+            </form>
+        </div>
+            <!-- search BOX -->
 
 
 
@@ -147,56 +119,11 @@
                             </button>
                         </span>
             </div>    <div class="scrollbar-sidebar">
-            <div class="app-sidebar__inner">
-                <ul class="vertical-nav-menu">
-                    <li class="app-sidebar__heading">Dashboards</li>
 
-                    <li>
-                        <a th:href="@{/orders.html}">
-                            <i class="metismenu-icon pe-7s-cart"></i>
-                            Orders
-                        </a>
-                    </li>
-                    <li>
-                        <a th:href="@{/manage-customer.html}">
-                            <i class="metismenu-icon pe-7s-users"></i>
-                            Manage Customer
-                        </a>
-                    </li>
-                    <li>
-                        <a th:href="@{/manage-books.html}">
-                            <i class="metismenu-icon pe-7s-notebook"></i>
-                            Manage Books
-                        </a>
-                    </li>
-                    <li>
-                        <a th:href="@{manage-categories.html}">
-                            <i class="metismenu-icon pe-7s-photo-gallery"></i>
-                            Manage Categories
-                        </a>
-                    </li>
-                    <li>
-                        <a th:href="@{/send-mail.html}">
-                            <i class="metismenu-icon pe-7s-mail"></i>
-                            Send Mail
-                        </a>
-                    </li>
-                    <li>
-                        <a th:href="@{/delivery-situations.html}">
-                            <i class="metismenu-icon pe-7s-map-2"></i>
-                            Delivery Situations
-                        </a>
-                    </li>
-                    <li>
-                        <a th:href="@{/manage-cargo-firms.html}">
-                            <i class="metismenu-icon pe-7s-box2"></i>
-                            Manage Cargo Firms
-                        </a>
-                    </li>
-
-
-                </ul>
+            <div  th:insert="admin/side-navbar :: side-navbar-admin">
+                <!-- side navbar reached from outside -->
             </div>
+
         </div>
         </div>
 
@@ -271,8 +198,7 @@
                                 <div class="widget-content-left">
                                     <div class="widget-heading">Total Book</div>
                                 </div>
-
-
+                                <!-- Count of Books -->
                                 <div class="widget-content-right">
                                     <div class="widget-numbers text-white">
                                         <form class="needs-validation" novalidate action="#" th:action="@{/managebooks/listbooks}" th:object="${totalCount}" method="POST">
@@ -280,12 +206,7 @@
                                         </form>
                                     </div>
                                 </div>
-
-								
-								
-
-								
-								
+                                <!-- Count of Books -->
                             </div>
                         </div>
                     </div>
@@ -305,23 +226,23 @@
                     </div>
                 </div>
 
-                <!--Aybar -->
-                <div th:if="${Currentisbn.isComeFromAddBook}">
+                <!-- ISBN ERROR MESSAGE -->
+                <div th:if="${session.Currentisbn.isComeFromAddBook}">
 
-                    <div th:if="${Currentisbn.isCurrent_isbn} ">
+                    <div th:if="${session.Currentisbn.isCurrent_isbn} ">
                         <div class="alert alert-success" role="alert">
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                             <h4 class="alert-heading">The book added succesfuly !</h4>
-                            <p>Adding the book process is succesfull !</p>
+                            <p>Saving the book process is succesfull !</p>
                             <hr>
                             <p class="mb-0">You can update the count of the book via "update" button</p>
 
                         </div>
                     </div>
 
-                    <div th:unless="${Currentisbn.isCurrent_isbn}">
+                    <div th:unless="${session.Currentisbn.isCurrent_isbn}">
                         <div class="alert alert-danger" role="alert">
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
@@ -335,10 +256,10 @@
                     </div>
                 </div>
 
-                <!--Aybar -->
+                <!--Aybar list can be scrollable --> <!-- MEMET-->
                 <div class="row">
                     <div class="col-md-12">
-                        <div class="main-card mb-3 card">
+                        <div  style="overflow-x:scroll;" class="main-card mb-3 card">
 
                             <div class="card-body"><h5 class="card-title">Books</h5>
                                 <table class="mb-0 table">
@@ -361,76 +282,70 @@
                                     </thead>
                                     <tbody>
                                     <tr data-target="#deleteModal" data-toggle="model" th:each="books:${thebooks}">
-                                        <td th:text="${books.getId()}"/>
-                                        <td>
-                                            <img th:src="${ books.imageURL}"
-                                                 style="width:50%;">
+                                        <td style="width: 5%" th:text="${books.getId()}"></td>
+                                        <td style="width: 15%">
+                                            <img th:src="${ books.imageURL}" width="80" height="121">
                                         </td>
-                                        <td/>
-                                            <p th:text="${books.getTitle()}"/>
+                                        <td style="width: 10%">
+                                            <p style="width: 150px; white-space: nowrap;overflow: hidden;text-overflow: ellipsis;" th:text="${books.getTitle()}"></p>
                                             -
-                                            <p th:text="${books.isbn}"/>
+                                            <p style="width: 150px; white-space: nowrap;overflow: hidden;text-overflow: ellipsis;" th:text="${books.isbn}"></p>
                                         </td>
-                                        <td/>
-                                            <p th:text="${books.authorName}"/>
+                                        <td style="width: 10%">
+                                            <p th:text="${books.authorName}"></p>
                                             -
-                                            <p th:text="${books.publisherName}"/>
+                                            <p th:text="${books.publisherName}"></p>
                                         </td>
-                                        <td/>
-                                            <p th:text="${books.year}"/>
+                                        <td style="width: 10%">
+                                            <p th:text="${books.year}"></p>
                                             -
-                                            <p th:text="${books.addedDate}"/>
+                                            <p th:text="${books.addedDate}"></p>
                                         </td>
 
-                                        <td/>
-                                            <p th:text="${books.getSubcategory().getCategory().getTitle()}"/>
+                                        <td style="width: 10%">
+                                            <p th:text="${(books.subcategory.category!=null) ? books.getSubcategory().getCategory().getTitle() : 'General'}"></p>
                                             -
-                                            <p th:text="${books.getSubcategory().getTitle()}"/>
+                                            <p th:text="${books.getSubcategory().getTitle()}"></p>
                                         </td>
 
-                                        <td/>
-                                            <p th:text="${books.count}"/>
-
+                                        <td style="width: 5%">
+                                            <p th:text="${books.count}"></p>
                                         </td>
-                                        <td/>
-                                            <p th:text="${books.price}+'$'"/>
+
+                                        <td style="width: 10%">
+                                            <p th:text="${books.price}+'$'"></p>
                                             -
-                                            <p th:text="${books.campaign != null} ? ${books.campaign.getDiscountPercentage()}+ '%' : 0 + '%'"/>
+                                            <p th:text="${books.campaign != null} ? ${books.campaign.getDiscountPercentage()}+ '%' : 0 + '%'"></p>
                                         </td>
-                                        <td/>
-                                            <p th:text="${books.subject}"/>
-                                        </td>
+                                        <td style="width: 15%; ">
 
-                                        <td class="text-center">
+                                            <p style="width: 150px; white-space: nowrap;overflow: hidden;text-overflow: ellipsis;" th:text="${books.subject}"></p>
+
+                                        </td>
+                                        <!-- MEMET-->
+                                        <td style="width: 15%" class="text-center">
                                             <div class="row justify-content-md-center">
-                                                <button type="button" class="btn mr-2 mb-2 btn-primary" data-toggle="modal" data-target="#addCampaignModal" th:attrappend="data-target=${books.id}">
+                                                <button type="button" class="btn mr-2 mb-2 btn-primary" style="width: 140px" data-toggle="modal" data-target="#addCampaignModal" th:attrappend="data-target=${books.id}">
                                                     Update Campaign
                                                 </button>
                                             </div>
-
-                                            <div class="row justify-content-md-center">  <!-- th:action="@{/deletebook}" th:object="${books}" method="post"-->
-
+                                            <!-- MEMET-->
+                                            <div class="row justify-content-md-center">
                                                 <form action="#" th:action="@{/managebooks/deletebook}" method="POST">
-
                                                     <input type="hidden" name="bookId" th:value="${books.id}">
-                                                    <button type="submit" style="padding-left: 36px;padding-right: 36px" class="mb-2 mr-2 btn btn-danger" onclick="if (!(confirm('Are you sure you want to delete this employee?'))) return false">
+                                                    <button type="submit" class="mb-2 mr-2 btn btn-danger" style="width: 140px" onclick="if (!(confirm('Are you sure you want to delete this book?'))) return false">
                                                         Delete
                                                     </button>
-
                                                 </form>
-
-
                                             </div>
-
-                                            <form action="#" th:action="@{/managebooks/update-book}" method="POST">
-
-                                                <input type="hidden" name="bookId" th:value="${books.id}">
-                                                <button type="submit" class="mb-2 mr-2 btn btn-info"
-                                                        style="padding-left: 35px;padding-right: 35px">Update
-                                                </button>
-
-                                            </form>
-
+                                            <!-- MEMET-->
+                                            <div class="row justify-content-md-center">
+                                                <form action="#" th:action="@{/managebooks/update-book}" method="POST">
+                                                    <input type="hidden" name="bookId" th:value="${books.id}">
+                                                        <button type="submit" class="mb-2 mr-2 btn btn-info" style="width: 140px">Update
+                                                        </button>
+                                                </form>
+                                            </div>
 
                                             <!-- Campaign Modal --> <!-- th:attrappend="id=${books.id}" -->
                                             <div>
@@ -536,9 +451,7 @@
 
                                         <li class="nav-item"
                                             th:each="i : ${#numbers.sequence(0,(thebooks.totalPages)-1)}" >
-
                                             <a th:href="@{/managebooks/listbooks/(page=${i})}" th:text="${i}" class="nav-link"> </a>
-
                                         </li>
                                     </ul>
 
