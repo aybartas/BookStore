@@ -208,9 +208,9 @@
                             </div>
                         </div>
                         <div class="position-relative row form-group"><label for="examplePassword" class="col-sm-2 col-form-label">ISBN</label>
-                            <div class="col-sm-10"><input th:field="*{isbn}" name="password" id="examplePassword" placeholder="write ISBN" type="text" class="form-control" required>
+                            <div class="col-sm-10"><input th:field="*{isbn}" name="password" id="examplePassword" placeholder="write ISBN number with lenght 10" type="text" pattern="[0-9]{10}" class="form-control" required>
                                 <div class="invalid-feedback">
-                                    Please write a valid ISBN.
+                                    Please write a valid ISBN length must be 10 and all charachters must be number.
                                 </div>
                             </div>
                         </div>
@@ -222,7 +222,7 @@
                             </div>
                         </div>
                         <div class="position-relative row form-group"><label for="exampleName" class="col-sm-2 col-form-label">Publication Year</label>
-                            <div class="col-sm-10"><input th:field="*{year}" placeholder="write publication year" type="number" min="1000" max="9999" id="datepicker" class="form-control" required>
+                            <div class="col-sm-10"><input th:field="*{year}" placeholder="write publication year" type="number" min="1000" max="2025" id="datepicker" class="form-control" required>
                                 <div class="invalid-feedback">
                                     Please write a valid year.
                                 </div>
@@ -246,7 +246,7 @@
                         </div>
 
                         <div class="position-relative row form-group"><label for="exampleName" class="col-sm-2 col-form-label">Price</label>
-                            <div class="col-sm-10"><input th:field="*{price}" name="Name" id="examplePrice" placeholder="write price" type="number" min="0" step="0.01" class="form-control" required>
+                            <div class="col-sm-10"><input th:field="*{price}" name="Name" id="examplePrice" placeholder="write price" type="number" min="0.01" step="0.01" class="form-control" required>
                                 <div class="invalid-feedback">
                                     Please write a valid number. Not negative, or not non-number character.
                                 </div>

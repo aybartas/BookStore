@@ -5,23 +5,38 @@ import javax.persistence.*;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name="book_comment")
-public class BookComment implements Serializable {
+public class BookComment{
 
     @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @Column(name="id")
+    private int id;
+
     @ManyToOne
     @JoinColumn( name="book_id")
     private Book book;
 
-    @Id
     @ManyToOne
     @JoinColumn(name = "customer_id")
     private Customer customer;
 
     @Column(name = "rate")
     private Float rate;
+
+    @Column(name = "added_date")
+    private LocalDateTime addedDate = LocalDateTime.now();
+
+    public LocalDateTime getAddedDate() {
+        return addedDate;
+    }
+
+    public void setAddedDate(LocalDateTime addedDate) {
+        this.addedDate = addedDate;
+    }
 
     @Column(name = "user_comment")
     private String user_comment;

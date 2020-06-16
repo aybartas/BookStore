@@ -114,43 +114,43 @@
                     <li class="app-sidebar__heading">Dashboards</li>
 
                     <li>
-                        <a href="orders.html">
+                        <a th:href="@{/viewandconfirmsales/listorders}">
                             <i class="metismenu-icon pe-7s-cart"></i>
                             Orders
                         </a>
                     </li>
                     <li>
-                        <a href="manage-customer.html">
+                        <a th:href="@{/managecustomers/listcustomers}">
                             <i class="metismenu-icon pe-7s-users"></i>
                             Manage Customer
                         </a>
                     </li>
                     <li>
-                        <a href="manage-books.html">
+                        <a th:href="@{/managebooks/listbooks}">
                             <i class="metismenu-icon pe-7s-notebook"></i>
                             Manage Books
                         </a>
                     </li>
                     <li>
-                        <a href="manage-categories.html">
+                        <a th:href="@{/managecategories/listcategories}">
                             <i class="metismenu-icon pe-7s-photo-gallery"></i>
                             Manage Categories
                         </a>
                     </li>
                     <li>
-                        <a href="send-mail.html">
+                        <a th:href="@{/managemails/listmails}">
                             <i class="metismenu-icon pe-7s-mail"></i>
-                            Send Mail
+                            Show Mail
                         </a>
                     </li>
                     <li>
-                        <a href="delivery-situations.html">
+                        <a th:href="@{/viewdeliveries/listdeliveriessituations}">
                             <i class="metismenu-icon pe-7s-map-2"></i>
                             Delivery Situations
                         </a>
                     </li>
                     <li>
-                        <a href="manage-cargo-firms.html">
+                        <a th:href="@{/managecargofirms/listcargofirms}">
                             <i class="metismenu-icon pe-7s-box2"></i>
                             Manage Cargo Firms
                         </a>
@@ -229,20 +229,40 @@
                 <div class="card-body"><h5 class="card-title">Grid</h5>
                     <form class="needs-validation" novalidate action="#" th:action="@{/managecustomers/saveCustomer}" th:object="${customerForSave}" method="POST">
                         <div class="position-relative row form-group"><label for="exampleEmail" class="col-sm-2 col-form-label">Email</label>
-                            <div class="col-sm-10"><input th:field="*{email}" name="email" id="exampleEmail" placeholder="write a valid email" type="email" class="form-control" required></div>
+                            <div class="col-sm-10"><input th:field="*{email}" name="email" id="exampleEmail" placeholder="write a valid email" type="email" class="form-control" required>
+                                <div class="invalid-feedback">
+                                    Please write a valid e-mail
+                                </div>
+                            </div>
                         </div>
                         <div class="position-relative row form-group"><label for="examplePassword" class="col-sm-2 col-form-label">Password</label>
-                            <div class="col-sm-10"><input th:field="*{customerPassword}" name="password" id="examplePassword" placeholder="write password at least 8 length" type="password" minlength="8" class="form-control" required></div>
+                            <div class="col-sm-10"><input th:field="*{customerPassword}" name="password" id="examplePassword" placeholder="write password at least 8 length" type="password" minlength="8" class="form-control" required>
+                                <div class="invalid-feedback">
+                                    Please write at least 8 length password.
+                                </div>
+                            </div>
                         </div><!-- Password yap input type'ini -->
                         <div class="position-relative row form-group"><label for="exampleName" class="col-sm-2 col-form-label">Name/Surname</label>
-                            <div class="col-sm-10"><input th:field="*{customerName}" name="Name" id="exampleName" placeholder="write full name" type="text" class="form-control" required></div>
+                            <div class="col-sm-10"><input th:field="*{customerName}" name="Name" id="exampleName" placeholder="write full name" type="text" class="form-control" required>
+                                <div class="invalid-feedback">
+                                    Please write a valid name.
+                                </div>
+                            </div>
                         </div>
 
                         <div class="position-relative row form-group"><label for="exampleText" class="col-sm-2 col-form-label">Address</label>
-                            <div class="col-sm-10"><textarea th:field="*{address}" name="text" id="exampleText" class="form-control" placeholder="write address" required></textarea></div>
+                            <div class="col-sm-10"><textarea th:field="*{address}" name="text" id="exampleText" class="form-control" placeholder="write address" required></textarea>
+                                <div class="invalid-feedback">
+                                    Please write a valid address.
+                                </div>
+                            </div>
                         </div>
                         <div class="position-relative row form-group"><label for="examplePhone" class="col-sm-2 col-form-label">Phone</label>
-                            <div class="col-sm-10"><input th:field="*{phone}" id="examplePhone" placeholder="write phone with XXXX XXX XX XX format" type="tel" name="examplePhone" pattern="[0-9]{4} [0-9]{3} [0-9]{2} [0-9]{2}" class="form-control" required></div>
+                            <div class="col-sm-10"><input th:field="*{phone}" id="examplePhone" placeholder="write phone with XXXX XXX XX XX format" type="tel" name="examplePhone" pattern="[0-9]{4} [0-9]{3} [0-9]{2} [0-9]{2}" class="form-control" required>
+                                <div class="invalid-feedback">
+                                    Please write phone number with given format (XXXX XXX XX XX)
+                                </div>
+                            </div>
                         </div>
                         <div class="position-relative row form-check">
                             <div class="col-sm-10 offset-sm-2">

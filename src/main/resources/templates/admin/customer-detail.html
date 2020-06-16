@@ -114,43 +114,43 @@
                     <li class="app-sidebar__heading">Dashboards</li>
 
                     <li>
-                        <a href="orders.html">
+                        <a th:href="@{/viewandconfirmsales/listorders}">
                             <i class="metismenu-icon pe-7s-cart"></i>
                             Orders
                         </a>
                     </li>
                     <li>
-                        <a href="manage-customer.html">
+                        <a th:href="@{/managecustomers/listcustomers}">
                             <i class="metismenu-icon pe-7s-users"></i>
                             Manage Customer
                         </a>
                     </li>
                     <li>
-                        <a href="manage-books.html">
+                        <a th:href="@{/managebooks/listbooks}">
                             <i class="metismenu-icon pe-7s-notebook"></i>
                             Manage Books
                         </a>
                     </li>
                     <li>
-                        <a href="manage-categories.html">
+                        <a th:href="@{/managecategories/listcategories}">
                             <i class="metismenu-icon pe-7s-photo-gallery"></i>
                             Manage Categories
                         </a>
                     </li>
                     <li>
-                        <a href="send-mail.html">
+                        <a th:href="@{/managemails/listmails}">
                             <i class="metismenu-icon pe-7s-mail"></i>
-                            Send Mail
+                            Show Mail
                         </a>
                     </li>
                     <li>
-                        <a href="delivery-situations.html">
+                        <a th:href="@{/viewdeliveries/listdeliveriessituations}">
                             <i class="metismenu-icon pe-7s-map-2"></i>
                             Delivery Situations
                         </a>
                     </li>
                     <li>
-                        <a href="manage-cargo-firms.html">
+                        <a th:href="@{/managecargofirms/listcargofirms}">
                             <i class="metismenu-icon pe-7s-box2"></i>
                             Manage Cargo Firms
                         </a>
@@ -249,6 +249,7 @@
                                         <h5 class="card-title">Phone</h5>
                                         <td class="text-center text-muted" th:text="${thecustomer.getPhone()}"></td>
                                     </a>
+                                </a>
                             </ul>
                         </div>
                     </div>
@@ -256,75 +257,37 @@
                 <div class="col-md-6">
                     <h2>Order History</h2>
                     <div  id="accordion" class="accordion-wrapper mb-3">
-                        <div class="card">
+                        <div class="card" th:each="request,iterStat:${purchaseRequests}">
                             <div id="headingOne" class="card-header">
-                                <button  type="button" data-toggle="collapse" data-target="#collapseOne1" aria-expanded="false" aria-controls="collapseOne" class="text-left m-0 p-0 btn btn-link btn-block collapsed">
+                                <button  type="button" data-toggle="collapse" th:attr="data-target='#collapseOne'+${request.getId()}" aria-expanded="false" aria-controls="collapseOne" class="text-left m-0 p-0 btn btn-link btn-block collapsed">
                                     <font color="#555F78">
-                                        <h6 class="m-0 p-0">Order Number: </h6>
-                                        <h6 class="m-0 p-0" th:text="${customer.getContent()}"></h6>
-                                        <h6 class="m-0 p-0">Order Date: 12/11/2019 </h6>
-                                        <h6 class="m-0 p-0">Arrival Date: 15/11/2019 </h6>
-                                        <h6 class="m-0 p-0">Total: 37$ </h6>
+
+                                        <h6  class="m-0 p-0" th:text="'Order Number: ' + ${(request != null) ? request.getId(): theNullCard.get(0)}"></h6>
+
+                                        <h6  class="m-0 p-0" th:text="'Order Date: '+ ${( request != null) ? request.getPurchaseDate():  theNullCard.get(0)}"></h6>
+
+                                        <h6  class="m-0 p-0" th:text="'Total: ' + ${( request != null) ? counts.get(iterStat.index):  theNullCard.get(0)}"></h6>
+
                                     </font>
 
                                 </button>
                             </div>
-                            <div data-parent="#accordion" id="collapseOne1" aria-labelledby="headingOne" class="collapse" style="">
+                            <div data-parent="#accordion" th:id="'collapseOne'+${request.getId()}" aria-labelledby="headingOne" class="collapse" style="">
                                 <div class="card-body">
                                     <ul class="list-group list-group-flush">
-                                        <a href="javascript:void(0);" class="disabled list-group-item">
-                                            <h6>Address: </h6>
-                                            <h6 th:text="${thecustomer.getAddress()}"></h6>
-                                            <h6>Phone: </h6>
-                                            <h6 th:text="${thecustomer.getPhone()}"></h6>
-                                            <h6>Email: </h6>
-                                            <h6 th:text="${thecustomer.getEmail()}"></h6>
-                                        </a>
-                                        <a href="javascript:void(0);" class="disabled list-group-item">
-                                            <h5>It / Stephen King</h5>
-                                            Count: 1<br>
-                                            Price: 12$
-                                        </a>
-                                        <a href="javascript:void(0);" class="disabled list-group-item">
-                                            <h5>Abasiyanik / Sait Faik </h5>
-                                            Count: 1<br>
-                                            Price: 25$
+                                        <div  class="disabled list-group-item">
+                                            <td class="col_name" th:text="'Address: ' + ${thecustomer.getAddress()}"></td>
+                                            <br>
+                                            <td class="col_name" th:text="'Phone: ' + ${thecustomer.getPhone()}"></td>
+                                            <br>
+                                            <td class="col_name" th:text="'Email: ' + ${thecustomer.getEmail()}"></td>
+                                        </div>
+                                        <a th:each="cart:${request.getCarts()}" href="javascript:void(0);" class="disabled list-group-item">
+                                            <h5 class="card-title" th:text="${(cart.getCustomer().getId() == thecustomer.getId() && cart.getPurchaseRequest().getId() == request.getId()) ? cart.getBookId().getTitle() + ' / ' + cart.getBookId().getAuthorName() : ''} "></h5>
+                                            <h7 class="m-0 p-0" th:text="${(cart.getCustomer().getId() == thecustomer.getId() && cart.getPurchaseRequest().getId() == request.getId()) ?  'Count: ' + cart.getBookId().getCount() : ''}"></h7>
+                                            <h7 class="m-0 p-0" th:text="${ (cart.getCustomer().getId() == thecustomer.getId() && cart.getPurchaseRequest().getId() == request.getId()) ?'Price: ' + cart.getBookId().getPrice() + '$' : '' }"></h7>
                                         </a>
                                     </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card">
-                            <div id="headingTwo" class="b-radius-0 card-header">
-                                <button type="button" data-toggle="collapse" data-target="#collapseOne2" aria-expanded="false" aria-controls="collapseTwo" class="text-left m-0 p-0 btn btn-link btn-block"><h5 class="m-0 p-0">
-                                    <font color="#555F78">
-                                        <h6 class="m-0 p-0">Order Number: 455234</h6>
-                                        <h6 class="m-0 p-0">Order Date: 12/11/2019 </h6>
-                                        <h6 class="m-0 p-0">Arrival Date: 15/11/2019 </h6>
-                                        <h6 class="m-0 p-0">Total: 40$ <h6>
-                                    </font>
-                                </button>
-                            </div>
-                            <div data-parent="#accordion" id="collapseOne2" class="collapse">
-                                <div class="card-body">2. Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa
-
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card">
-                            <div id="headingThree" class="card-header">
-                                <button type="button" data-toggle="collapse" data-target="#collapseOne3" aria-expanded="false" aria-controls="collapseThree" class="text-left m-0 p-0 btn btn-link btn-block"><h5 class="m-0 p-0">
-                                    <font color="#555F78">
-                                        <h6 class="m-0 p-0">Order Number: 455234</h6>
-                                        <h6 class="m-0 p-0">Order Date: 12/11/2019 </h6>
-                                        <h6 class="m-0 p-0">Arrival Date: 15/11/2019 </h6>
-                                        <h6 class="m-0 p-0">Total: 40$ </h6>
-                                    </font>
-                                </h5></button>
-                            </div>
-                            <div data-parent="#accordion" id="collapseOne3" class="collapse">
-                                <div class="card-body">3. Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa
-
                                 </div>
                             </div>
                         </div>

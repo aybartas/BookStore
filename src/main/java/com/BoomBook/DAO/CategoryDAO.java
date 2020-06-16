@@ -21,4 +21,6 @@ public interface CategoryDAO  extends JpaRepository<Category,Integer>{
     public void deleteById(int theId);
 
     public Page<Category> findCategoryById(int id, Pageable pageable);
+
+
 }

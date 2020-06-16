@@ -35,6 +35,17 @@ public class PurchaseRequest {
     @OneToOne(cascade = javax.persistence.CascadeType.ALL,mappedBy = "purchaseRequest")
     private InCargo inCargo;
 
+    @OneToOne
+    @JoinColumn( name="billing_information_id")
+    private BillingInformation billingInformation;
+
+    public BillingInformation getBillingInformation() {
+        return billingInformation;
+    }
+
+    public void setBillingInformation(BillingInformation billingInformation) {
+        this.billingInformation = billingInformation;
+    }
 
     public PurchaseRequest(List<Cart> carts, int isConfirmed, LocalDateTime purchaseDate, CourierCompany courierCompany, PaymentService paymentServiceID, InCargo inCargo) {
         this.carts = carts;
@@ -47,6 +58,7 @@ public class PurchaseRequest {
 
     public PurchaseRequest() {
     }
+
 
 
     public InCargo getInCargo() {

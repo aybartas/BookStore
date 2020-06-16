@@ -90,7 +90,10 @@ public class PurchaseRequestDAOImpl implements PurchaseRequestDAO {
     }
 
     @Override
+    @Transactional
     public <S extends PurchaseRequest> S save(S s) {
+        Session currentSession = entityManager.unwrap(Session.class);
+        currentSession.saveOrUpdate(s);
         return null;
     }
 
@@ -187,10 +190,29 @@ public class PurchaseRequestDAOImpl implements PurchaseRequestDAO {
         theQuery.executeUpdate();
     }
 
+    @Override 
+    public List<PurchaseRequest> findPurchaseRequestByCartID(int id) {
+        return null;
+    }
+
+    @Override
+    public List<PurchaseRequest> findPurchaseRequestByCustomerId(int id) {
+        return null;
+    }
+
+    @Override
+    public List<PurchaseRequest> findAllSorted() {
+        return null;
+    }
+/*
+
     @Override
     public List<PurchaseRequest> findPurchaseRequestByCartID(int id) {
         return null;
     }
+
+
+*/
 
 
 }

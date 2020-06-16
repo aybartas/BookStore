@@ -20,21 +20,7 @@
   <link th:href="@{/user/css/style.css}" rel="stylesheet">
   <link th:href="@{/user/css/animate.min.css}" rel="stylesheet">
 
-<!--
-  <link rel="stylesheet" href="css/magnific-popup.css" />
-  <link rel="stylesheet" href="css/font-icons.css" />
-  <link rel="stylesheet" href="css/sliders.css" />
-  <link rel="stylesheet" href="css/style.css" />
-  <link rel="stylesheet" href="css/animate.min.css" />
--->
-  <!-- Favicons -->
 
-  <!--
-  <link rel="shortcut icon" href="img/favicon.ico">
-  <link rel="apple-touch-icon" href="img/apple-touch-icon.png">
-  <link rel="apple-touch-icon" sizes="72x72" href="img/apple-touch-icon-72x72.png">
-  <link rel="apple-touch-icon" sizes="114x114" href="img/apple-touch-icon-114x114.png">
--->
 
   <link th:href="@{/user/img/favicon.ico}" rel="shortcut icon">
   <link th:href="@{/user/img/apple-touch-icon.png}" rel="apple-touch-icon">
@@ -186,7 +172,7 @@
                 <label>phone
                   <abbr class="required" title="required">*</abbr>
                 </label>
-                     <input type="text" class="input-text" th:field="*{phone}" placeholder="Enter your phone number!" value="" required>
+                     <input type="text" class="input-text" th:field="*{phone}"  pattern="[0-9]{4} [0-9]{3} [0-9]{2} [0-9]{2}" placeholder=" Please write phone number with given format (XXXX XXX XX XX)" value="" required>
               </p>
               <p class="form-row form-row-wide">
                 <label>address
@@ -218,9 +204,14 @@
         </div>
       </div>
     </section> <!-- end login -->
-   
+
 
     <!-- Footer Type-1 -->
+    <footer class="footer footer-type-1 bg-white">
+      <div th:insert="user/footer :: footer"></div>
+    </footer> <!-- end footer -->
+
+<!--     Footer Type-1
     <footer class="footer footer-type-1 bg-white">
       <div class="container">
         <div class="footer-widgets top-bottom-dividers pb-mdm-20">
@@ -286,20 +277,15 @@
                   <a href="#"><i class="fa fa-vimeo"></i></a>
                 </div>
               </div>
-            </div> <!-- end stay in touch -->           
+            </div>  end stay in touch
 
           </div>
         </div>    
-      </div> <!-- end container -->
+      </div>  end container
 
       <div class="bottom-footer bg-white">
         <div class="container">
           <div class="row">
-            <div class="col-sm-6 copyright sm-text-center">
-              <span>
-                &copy; 2017 Aha Shop, Made by <a href="http://deothemes.com">DeoThemes</a>
-              </span>
-            </div>
 
             <div class="col-sm-6 col-xs-12 footer-payment-systems text-right sm-text-center mt-sml-10">
               <i class="fa fa-cc-paypal"></i>
@@ -310,8 +296,8 @@
             </div>
           </div>
         </div>
-      </div> <!-- end bottom footer -->
-    </footer> <!-- end footer -->
+      </div>  end bottom footer
+    </footer>  end footer -->
 
     <div id="back-to-top">
       <a href="#top"><i class="fa fa-angle-up"></i></a>

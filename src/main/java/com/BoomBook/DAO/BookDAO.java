@@ -2,6 +2,7 @@ package com.BoomBook.DAO;
 
 
 import com.BoomBook.Model.Book;
+import com.BoomBook.Model.BookComment;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -20,10 +21,11 @@ public interface BookDAO  extends JpaRepository<Book,Integer> {
     public List<Book> findByisbn(String isbn);
 
     // FIND BY TITLE it is addded to sort functionality in search book page
-    @Query("select s from Book s where s.title like %?1% OR s.authorName like %?1% OR s.publisherName like %?1% OR s.subject like %?1% or s.subcategory.title like %?1% or s.subcategory.category.title like %?1% OR s.isbn like %?1%")
-    Page<Book> findByTitle(String title, Pageable pageable);
-    @Query("select s from Book s where s.year=?1 and s.price = ?1 or s.priceWithCampaign = ?1")
-    Page<Book> findByTitleFloat(float number, Pageable pageable);
+    @Query("select s from Book s where s.title like %?1% OR s.authorName like %?1% OR s.publisherName like %?1% OR " +
+            "s.subject like %?1% or s.subcategory.title like %?1% or s.subcategory.category.title like %?1% " +
+            "or s.year = ?2 or s.priceWithCampaign = ?3")
+    Page<Book> findByTitle(String title, int year, float number, Pageable pageable);
+
 
     // FIND BY SUBCATEGORY it is addded to sort functionality in search book page
     @Query("select s from Book s where s.subcategory.id = ?1")
@@ -37,4 +39,7 @@ public interface BookDAO  extends JpaRepository<Book,Integer> {
     @Query("select distinct s from Book s, Campaign c where s.campaign.id = c.book.id")
     Page<Book> findCampaign(Pageable pageable);
 
+    //Rated Books
+    @Query("select avg(b.rate) from Book s, BookComment b where s.id = ?1 and b.book.id = s.id and b.rate <>0")
+    Float bookRate(int bookId);
 }

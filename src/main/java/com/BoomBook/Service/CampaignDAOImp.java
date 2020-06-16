@@ -24,6 +24,8 @@ public class CampaignDAOImp implements CampaignDAO {
 
 
     private EntityManager entityManager;
+    @Autowired
+    public DataSource dataSource;
 
     @Autowired
     public CampaignDAOImp(EntityManager theEntityManager){
@@ -76,6 +78,7 @@ public class CampaignDAOImp implements CampaignDAO {
             return books;
     }
 
+
     /*
 
     @Transactional
@@ -86,10 +89,12 @@ public class CampaignDAOImp implements CampaignDAO {
                 "where b.id = c.book_id and c.purchase_request_id = p.id and " +
                 "c.customer_id =  "+ userId + " limit 4" ;
 
+
         Statement stmt = null;
         Connection con = dataSource.getConnection();
         stmt = con.createStatement();
         ResultSet rs = stmt.executeQuery(query);
+
         ArrayList<Integer> recommendedBooks = new ArrayList<Integer>();
 
         while (rs.next()){

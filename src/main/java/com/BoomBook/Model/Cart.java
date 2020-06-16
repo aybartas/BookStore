@@ -22,8 +22,10 @@ public class Cart {
     @JoinColumn( name="purchase_request_id")
     private PurchaseRequest purchaseRequest;
 
+
     @Column(name = "count")
     private int count;
+
 
     public PurchaseRequest getPurchaseRequest() {
         return purchaseRequest;

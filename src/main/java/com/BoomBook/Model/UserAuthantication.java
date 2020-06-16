@@ -1,5 +1,7 @@
 package com.BoomBook.Model;
 
+import java.util.List;
+
 public class UserAuthantication {
 
     private boolean adminLogin;
@@ -12,6 +14,10 @@ public class UserAuthantication {
     private boolean loginWrongPassword;
     private boolean isComeFromLogin;
     private String userEmail;
+    private List<Cart> userCart;
+    private float totalCart;
+    private float totalOrder;
+
 
 
     public UserAuthantication(boolean adminLogin, boolean loggedin, boolean registerExist, boolean wrongCredentials, boolean succesfulRegister, boolean isComeFromRegister, boolean loginWrongEmail, boolean loginWrongPassword, boolean isComeFromLogin, String userEmail) {
@@ -25,11 +31,10 @@ public class UserAuthantication {
         this.loginWrongPassword = loginWrongPassword;
         this.isComeFromLogin = isComeFromLogin;
         this.userEmail = userEmail;
+        this.totalCart = 0;
     }
 
-    public UserAuthantication() {
-
-    }
+    public UserAuthantication() {}
 
     public String getUserEmail() {
         return userEmail;
@@ -133,6 +138,21 @@ public class UserAuthantication {
         isComeFromLogin = comeFromLogin;
     }
 
+    public List<Cart> getUserCart() {
+        return userCart;
+    }
+
+    public void setUserCart(List<Cart> userCart) {
+        this.userCart = userCart;
+    }
+
+    public float getTotalCart() {
+        return totalCart;
+    }
+
+    public void setTotalCart(float totalCart) {
+        this.totalCart = totalCart;
+    }
     @Override
     public String toString() {
         return "UserAuthantication{" +
@@ -147,5 +167,12 @@ public class UserAuthantication {
                 ", isComeFromLogin=" + isComeFromLogin +
                 ", userEmail='" + userEmail + '\'' +
                 '}';
+    }
+    public float getTotalOrder() {
+        return totalOrder;
+    }
+
+    public void setTotalOrder(float totalOrder) {
+        this.totalOrder = totalOrder;
     }
 }

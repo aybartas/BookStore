@@ -2,6 +2,7 @@ package com.BoomBook.Service;
 
 
 import com.BoomBook.DAO.PageAdminDAO;
+import com.BoomBook.Model.Customer;
 import com.BoomBook.Model.PageAdmin;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
@@ -84,8 +85,17 @@ public class PageAdminDAOImp implements PageAdminDAO {
 
     }
 
+    @Override
+    public List<PageAdmin> findByEmail(String email) {
 
 
+        Session currentSession = entityManager.unwrap(Session.class);
+        Query<PageAdmin> theQuery = currentSession.createQuery("from PageAdmin where email =:emailparam ", PageAdmin.class);
+        theQuery.setParameter("emailparam", email);
+        List<PageAdmin> pageAdmins = theQuery.getResultList();
+        return pageAdmins;
+
+    }
 
 
 }

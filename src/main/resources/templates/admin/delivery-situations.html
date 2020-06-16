@@ -114,44 +114,44 @@
                                 <li class="app-sidebar__heading">Dashboards</li>
                                  
                                 <li>
-                                    <a href="orders.html">
+                                    <a th:href="@{/viewandconfirmsales/listorders}">
                                         <i class="metismenu-icon pe-7s-cart"></i>
                                         Orders
                                     </a> 
                                 </li>
                                 <li>
-                                    <a href="manage-customer.html">
+                                    <a th:href="@{/managecustomers/listcustomers}">
                                         <i class="metismenu-icon pe-7s-users"></i>
                                         Manage Customer
                                     </a> 
                                 </li>
                                 <li>
-                                    <a href="manage-books.html">
+                                    <a th:href="@{/managebooks/listbooks}">
                                         <i class="metismenu-icon pe-7s-notebook"></i>
                                         Manage Books
                                     </a> 
                                 </li>
                                 <li>
-                                    <a href="manage-categories.html">
+                                    <a th:href="@{/managecategories/listcategories}">
                                         <i class="metismenu-icon pe-7s-photo-gallery"></i>
                                         Manage Categories
                                     </a> 
                                 </li>
                                 <li>
-                                    <a href="send-mail.html">
+                                    <a th:href="@{/managemails/listmails}">
                                         <i class="metismenu-icon pe-7s-mail"></i>
-                                        Send Mail
+                                        Show Mail
                                     </a> 
                                 </li>
                                 
                                  <li>
-                                    <a href="delivery-situations.html">
+                                    <a th:href="@{/viewdeliveries/listdeliveriessituations}">
                                         <i class="metismenu-icon pe-7s-map-2"></i>
                                         Delivery Situations
                                     </a> 
                                 </li>
                                  <li>
-                                    <a href="manage-cargo-firms.html">
+                                    <a th:href="@{/managecargofirms/listcargofirms}">
                                         <i class="metismenu-icon pe-7s-box2"></i>
                                         Manage Cargo Firms
                                     </a> 
@@ -220,91 +220,49 @@
                         <div class="row">
                             <div class="col-md">
                                 <div id="accordion" class="accordion-wrapper mb-3" style="width: 100%">
-                                        <div class="card">
+                                        <div class="card" th:each="purchaseRequest, iterStat:${theorders}">
                                             <div id="headingOne" class="card-header">
-                                                <button type="button" data-toggle="collapse" data-target="#collapseOne1" aria-expanded="false" aria-controls="collapseOne" class="text-left m-0 p-0 btn btn-link btn-block collapsed">
+                                                <button type="button" data-toggle="collapse" th:data-target="'#collapse'+${purchaseRequest.id}" aria-expanded="false" aria-controls="collapseOne" class="text-left m-0 p-0 btn btn-link btn-block collapsed">
                                                     <div class="row">
                                                         <div class="col-md-9">
-                                                            <h6 class="m-0 p-0"><font color="black">Name Surname: John Doe</font><h6>
-                                                                <h6 class="m-0 p-0"><font color="black">Order Number: 234223</font><h6>
-                                                            <h6 class="m-0 p-0"><font color="black">Order Date: 05/04/2020</font> <h6>
+                                                            <h6 class="m-0 p-0" th:text="'Name Surname: '+${purchaseRequest.carts.get(0).customer.customerName}"></h6>
+                                                                <h6 class="m-0 p-0" th:text="'Order Number: '+ ${purchaseRequest.id}"></h6>
+                                                            <h6 class="m-0 p-0" th:text="'Order Date: '+ ${purchaseRequest.getPurchaseDate()}"> </h6>
                                                         </div>
-                                                        <div class="col-md-3">     
-                                                                <h6 class="m-0 p-0"><font color="black">Status:</font> <font color="red">On Delivery</font><h6>
-                                                                <h6 class="m-0 p-0"><font color="black">Total: 37$ </font><h6> 
-                                                        </div>  
+                                                        <div class="col-md-3" th:if="${confirmationSituation.get(iterStat.index)} ">
+                                                                <h6 class="m-0 p-0" th:text="'Status: On Delivery'" style="color: red"></h6>
+                                                                <h6 class="m-0 p-0" th:text="'Total: '+ ${theTotalOfOrders.get(iterStat.index)} + '$'" style="color: darkred"></h6>
+                                                        </div>
+                                                        <div class="col-md-3" th:unless="${confirmationSituation.get(iterStat.index)} ">
+                                                            <h6 class="m-0 p-0" th:text="'Status: Received'" style="color: green"></h6>
+                                                            <h6 class="m-0 p-0" th:text="'Total: '+ ${theTotalOfOrders.get(iterStat.index)} + '$'" style="color: darkred"></h6>
+                                                        </div>
                                                     </div>
                                                           
                                                 </button>
                                             </div>
-                                            <div data-parent="#accordion" id="collapseOne1" aria-labelledby="headingOne" class="collapse" style="">
+                                            <div data-parent="#accordion" th:id="'collapse'+${purchaseRequest.id}" aria-labelledby="headingOne" class="collapse" style="">
                                                 <div class="card-body">
                                                     <ul class="list-group list-group-flush">
                                                         <a href="javascript:void(0);" class="disabled list-group-item">
-                                                            <h6>Cargo Firm: </h6>
-                                                            1600 Amphitheatre Parkway, Mountain View, California, United States.
+                                                            <h6 th:text="'Cargo Firm:'"></h6>
+                                                            <p th:text="${purchaseRequest.courierCompany.companyName}"></p>
                                                             <br><br>
-                                                            <h6>Address: </h6>
-                                                            1600 Amphitheatre Parkway, Mountain View, California, United States.
+                                                            <h6 th:text="'Address: '"></h6>
+                                                            <p th:text="${purchaseRequest.carts.get(0).customer.address}"></p>
                                                             <br><br>
-                                                            <h6>Phone: </h6>
-                                                            5XXXXXXX
+                                                            <h6 th:text="'Phone: '"></h6>
+                                                            <p th:text="${purchaseRequest.carts.get(0).customer.phone}"></p>
                                                             <br><br>
-                                                            <h6>Email: </h6>
-                                                            johndoe@xyz.com
+                                                            <h6 th:text="'Email: '"></h6>
+                                                            <p th:text="${purchaseRequest.carts.get(0).customer.email}"></p>
                                                         </a>
-                                                        <a href="javascript:void(0);" class="disabled list-group-item">
-                                                            <h5>It / Stephen King</h5>
-                                                            Count: 1<br>
-                                                            Price: 12$  
-                                                        </a>
-                                                        <a href="javascript:void(0);" class="disabled list-group-item"> 
-                                                            <h5>Abasiyanik / Sait Faik </h5>
-                                                            Count: 1<br>
-                                                            Price: 25$ 
+                                                        <a th:each="cart:${purchaseRequest.carts}" class="disabled list-group-item">
+                                                            <h6 th:text="${cart.bookId.title} + ' / '+${cart.bookId.authorName} "></h6>
+                                                            <h6 th:text="'Count: '+${cart.count}"></h6><br>
+                                                            <h6 th:text="'Price: '+${cart.bookId.price}"></h6><br>
                                                         </a>
                                                     </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="card">
-                                            <div id="headingTwo" class="b-radius-0 card-header">
-                                                <button type="button" data-toggle="collapse" data-target="#collapseOne2" aria-expanded="false" aria-controls="collapseTwo" class="text-left m-0 p-0 btn btn-link btn-block"><h5 class="m-0 p-0">
-                                                            <font color="black">
-                                                            <h6 class="m-0 p-0">Name Surname: Michele Doe <h6>
-                                                            <h6 class="m-0 p-0">Email: micheledoe@xyz.com<h6>
-                                                            <h6 class="m-0 p-0">Order Number: 234223<h6>
-                                                            <h6 class="m-0 p-0">Order Date: 12/11/2019 <h6>
-                                                            <h6 class="m-0 p-0"><font color="black">Status:</font> <font color="red">On Delivery</font><h6>
-                                                            <h6 class="m-0 p-0">Total: 27$ <h6> 
-                                                            </font>
-                                                </button>
-                                            </div>
-                                            <div data-parent="#accordion" id="collapseOne2" class="collapse">
-                                                <div class="card-body">
-                                                    <h6 class="m-0 p-0">Name Surname: Michele Doe <h6>
-                                                            eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa
-                                                </div>
-                                            </div>
-                                        </div>
-                                         
-                                        <div class="card">
-                                            <div id="headingThree" class="card-header">
-                                                <button type="button" data-toggle="collapse" data-target="#collapseOne4" aria-expanded="false" aria-controls="collapseThree" class="text-left m-0 p-0 btn btn-link btn-block"><h5 class="m-0 p-0">
-                                                    <font color="black">
-                                                    <h6 class="m-0 p-0">Name Surname: Hilary Clinton <h6>
-                                                    <h6 class="m-0 p-0">Email: hilary@xyz.com<h6>
-                                                    <h6 class="m-0 p-0">Order Number: 23456<h6>
-                                                    <h6 class="m-0 p-0">Order Date: 12/14/2019 <h6>
-                                                    <h6 class="m-0 p-0"><font color="black">Status:</font> <font color="red">On Delivery</font><h6>    
-                                                    <h6 class="m-0 p-0">Total: 27$ <h6> 
-                                                    </font>
-                                                      
-                                                </h5></button>
-                                            </div>
-                                            <div data-parent="#accordion" id="collapseOne4" class="collapse">
-                                                <div class="card-body">3. Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa
-                                                  
                                                 </div>
                                             </div>
                                         </div>
@@ -317,43 +275,7 @@
                         </div>
                          
                     </div>
-                    <div class="app-wrapper-footer">
-                        <div class="app-footer">
-                            <div class="app-footer__inner">
-                                <div class="app-footer-left">
-                                    <ul class="nav">
-                                        <li class="nav-item">
-                                            <a href="javascript:void(0);" class="nav-link">
-                                                Footer Link 1
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="javascript:void(0);" class="nav-link">
-                                                Footer Link 2
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div class="app-footer-right">
-                                    <ul class="nav">
-                                        <li class="nav-item">
-                                            <a href="javascript:void(0);" class="nav-link">
-                                                Footer Link 3
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="javascript:void(0);" class="nav-link">
-                                                <div class="badge badge-success mr-1 ml-0">
-                                                    <small>NEW</small>
-                                                </div>
-                                                Footer Link 4
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>    </div>
+            </div>
                 <script src="http://maps.google.com/maps/api/js?sensor=true"></script>
         </div>
     </div>

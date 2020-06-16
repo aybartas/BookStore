@@ -15,12 +15,12 @@ public class PaymentService {
     private String paymentName;
 
     @Column(name="account_number")
-    private int accountNumber;
+    private String accountNumber;
 
     public PaymentService() {
     }
 
-    public PaymentService(int id, String paymentName, int accountNumber) {
+    public PaymentService(int id, String paymentName, String accountNumber) {
         this.id = id;
         this.paymentName = paymentName;
         this.accountNumber = accountNumber;
@@ -51,11 +51,11 @@ public class PaymentService {
         this.paymentName = paymentName;
     }
 
-    public int getAccountNumber() {
+    public String getAccountNumber() {
         return accountNumber;
     }
 
-    public void setAccountNumber(int accountNumber) {
+    public void setAccountNumber(String accountNumber) {
         this.accountNumber = accountNumber;
     }
 }

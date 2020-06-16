@@ -25,8 +25,6 @@ public class ManageCargoFirmsController {
     private CourierCompanyDAO courierCompanyDAO;
     private boolean nameError = false;
     private boolean CRUD = false;
-    private boolean CRUD2 = false;
-    private boolean phoneError = false;
 
     @Autowired
     public ManageCargoFirmsController(@Qualifier("courierCompanyDAO") CourierCompanyDAO theCouriercompanyDAO, HttpSession session ) {
@@ -34,18 +32,14 @@ public class ManageCargoFirmsController {
     }
     @GetMapping("/listcargofirms")
     public String manageCargoMainPage(Model theModel,  HttpSession session,@RequestParam(defaultValue = "0") int page ){
-        session.setAttribute("CRUD",CRUD);
 
-        session.setAttribute("CRUD2",CRUD2);
+        session.setAttribute("CRUD",CRUD);
 
         session.setAttribute("nameError",nameError);
 
-        session.setAttribute("phoneError",phoneError);
 
         CRUD = false;
-        CRUD2 = false;
         nameError = false;
-        phoneError = false;
 
         theModel.addAttribute("thecargo", courierCompanyDAO.findAll(PageRequest.of(page, 6)));
 
@@ -78,12 +72,6 @@ public class ManageCargoFirmsController {
         forsaveeCC.setUrl(cc.getUrl());
         forsaveeCC.setPhone(cc.getPhone());
         forsaveeCC.setPrice(cc.getPrice());
-        if(!(forsaveeCC.getPhone().matches("[0-9]+")) | !(forsaveeCC.getPhone().length() >= 10 & forsaveeCC.getPhone().length() <=11 )){
-            CRUD = false;
-            CRUD2 = true;
-            phoneError = true;
-            return "redirect:/managecargofirms/listcargofirms";
-        }
         for(CourierCompany cargo : courierCompanyDAO.findAll()){
             if(cargo.getCompanyName().equals(forsaveeCC.getCompanyName())){
                 nameError = true;
@@ -115,12 +103,7 @@ public class ManageCargoFirmsController {
         forsaveeCC.setUrl(cc.getUrl());
         forsaveeCC.setPhone(cc.getPhone());
         forsaveeCC.setPrice(cc.getPrice());
-        if(!(forsaveeCC.getPhone().matches("[0-9]+")) | !(forsaveeCC.getPhone().length() >= 10 & forsaveeCC.getPhone().length() <=11 )){
-            CRUD = false;
-            CRUD2 = true;
-            phoneError = true;
-            return "redirect:/managecargofirms/listcargofirms";
-        }
+
         for(CourierCompany cargo : courierCompanyDAO.findAll()){
             if(cargo.getCompanyName().equals(forsaveeCC.getCompanyName())){
                 if(cargo.getId() != forsaveeCC.getId()){

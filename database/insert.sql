@@ -52,40 +52,46 @@ insert into book(author_name,subcategory_id,publish_year,title,isbn,image_url,pu
 
 -- INSERTS FOR DEL5 --
 
-insert into customer(customer_name,phone,email,customer_password,address) value ('Aybar Tas', '5444343', 'aybar@xyz.com', '1234', 'Cok Evler Sitesi Eryaman/Ankara');
-insert into customer(customer_name,phone,email,customer_password,address) value ('Oktay Ugurlu', '5444343', 'oktayugurlu@xyz.com', '1234', 'Yok Evler Sitesi Eryaman/Ankara');
-insert into customer(customer_name,phone,email,customer_password,address) value ('Yusuf Tas', '5444343', 'yusuf@xyz.com', '1234', 'Cok Evler Sitesi Eryaman/Ankara');
-insert into customer(customer_name,phone,email,customer_password,address) value ('Koray Tas', '5444343', 'koray@xyz.com', '1234', 'Hep Evler Sitesi Eryaman/Ankara');
-insert into customer(customer_name,phone,email,customer_password,address) value ('Deniz Tas', '5444343', 'deniz@xyz.com', '1234', 'Guzel Evler Sitesi Eryaman/Ankara');
+insert into customer(customer_name,phone,email,customer_password,address) value ('Aybar Tas', '0544 537 36 34', 'aybar@xyz.com', '3ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4', 'Cok Evler Sitesi Eryaman/Ankara');
+insert into customer(customer_name,phone,email,customer_password,address) value ('Oktay Ugurlu', '0544 537 36 34', 'oktayugurlu@xyz.com', '3ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4', 'Yok Evler Sitesi Eryaman/Ankara');
+insert into customer(customer_name,phone,email,customer_password,address) value ('Yusuf Tas', '0544 537 36 34', 'yusuf@xyz.com', '3ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4', 'Cok Evler Sitesi Eryaman/Ankara');
+insert into customer(customer_name,phone,email,customer_password,address) value ('Koray Tas', '0544 537 36 34', 'koray@xyz.com', '3ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4', 'Hep Evler Sitesi Eryaman/Ankara');
+insert into customer(customer_name,phone,email,customer_password,address) value ('Deniz Tas', '0544 537 36 34', 'deniz@xyz.com', '3ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4', 'Guzel Evler Sitesi Eryaman/Ankara');
 
-insert into page_admin(admin_password,email) value ('1234', 'admin@admin');
+insert into page_admin(admin_password,email) value ('3ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4', 'admin@admin');
 
-insert into mail(page_admin_id,customer_id,title,content) value ('1', '1','hello','hello dear');
+insert into mail(page_admin_id,customer_id,title,content) value (1, 1,'hello','hello dear');
 
-insert into book_comment(book_id,customer_id,rate,user_comment) value (1, 1,3,'this book is sucks but i like it');
-insert into book_comment(book_id,customer_id,rate,user_comment) value (2,1,3,'this book is sucks but i like it');
-insert into book_comment(book_id,customer_id,rate,user_comment) value (3, 1,3,'this book is sucks but i like it');
-insert into book_comment(book_id,customer_id,rate,user_comment) value (4, 1,3,'this book is sucks but i like it');
-insert into book_comment(book_id,customer_id,rate,user_comment) value (5, 1,3,'this book is sucks but i like it');
-insert into book_comment(book_id,customer_id,rate,user_comment) value (6, 1,3,'this book is sucks but i like it');
+insert into book_comment(book_id,customer_id,rate,user_comment) value (1, 1,3,'this book is sucks but i like it'); 
+insert into book_comment(book_id,customer_id,rate,user_comment) value (1, 2,2,'Dont buy this book :( Why Dan Brown wrote this book! If I were Dan Brown, I had wrote better !!!');
+insert into book_comment(book_id,customer_id,rate,user_comment) value (3, 1,3,'Average book');
+insert into book_comment(book_id,customer_id,rate,user_comment) value (4, 1,3,'Average book');
+insert into book_comment(book_id,customer_id,rate,user_comment) value (5, 1,3,'Average book');
+insert into book_comment(book_id,customer_id,rate,user_comment) value (6, 1,3,'Average book');
  
 insert into campaign(book_id,discount_percentage,note,image_url) value (1, 50,"Horror Books 50% OFF !!","https://i.pinimg.com/originals/5c/10/30/5c103001e28430a2f7f18bc3f4d2dde5.jpg");
 insert into campaign(book_id,discount_percentage,note,image_url) value (2, 30,"Literature Books %30 OFF for weekend!","https://i.pinimg.com/originals/56/72/08/5672085fef1d265902089910705d5cae.jpg"); 
 insert into campaign(book_id,discount_percentage,note,image_url) value (3, 20,"Read this books with %20 OFF!!","https://yazname.com/wp-content/uploads/2016/11/Wonderful-Book-Wallpaper.jpg"); 
 insert into campaign(book_id,discount_percentage,note,image_url) value (4, 20,"Extreme campaign on this books!","https://wallpaperaccess.com/full/124378.jpg"); 
 
-insert into Purchase_Request(is_confirmed) value (1); 
-insert into Purchase_Request(is_confirmed) value (1); 
+insert into Courier_Company(url,phone,company_name,price) value ("https://www.ups.com.tr/","03122835298","UPS",9.99);
+insert into Courier_Company(url,phone,company_name,price) value ("https://www.dhl.com.tr/tr/express.html","08502734563","DHL Express",8.75);
 
-insert into cart(purchase_request_id,book_id,customer_id,count) value (1,1, 1,3);
-insert into cart(purchase_request_id,book_id,customer_id,count) value (1,1, 1,3);
+insert into Purchase_Request(is_confirmed,courier_company_id) value (0,1); 
+insert into Purchase_Request(is_confirmed,courier_company_id) value (0,1); 
+
+insert into cart(purchase_request_id,book_id,customer_id,count) value (1,1, 1,3); 
 insert into cart(purchase_request_id,book_id,customer_id,count) value (2,1, 2,3);
-insert into cart(purchase_request_id,book_id,customer_id,count) value (2,1, 2,2);
-insert into cart(purchase_request_id,book_id,customer_id,count) value (2,2, 2,3);
-insert into cart(purchase_request_id,book_id,customer_id,count) value (2,2, 2,3);
-insert into cart(purchase_request_id,book_id,customer_id,count) value (2,2, 2,4);
-insert into cart(purchase_request_id,book_id,customer_id,count) value (2,2, 2,3);
+insert into cart(purchase_request_id,book_id,customer_id,count) value (2,2, 2,2);
+insert into cart(purchase_request_id,book_id,customer_id,count) value (2,3, 2,3);
 
-insert into In_Cargo(purchase_request_id) value (1); 
-insert into In_Cargo(purchase_request_id) value (2); 
+insert into In_Cargo(purchase_request_id,export_date,arrival_date) value (1, '2020-8-11 13:23:44','2020-11-11 13:23:44'); 
+insert into In_Cargo(purchase_request_id,export_date,arrival_date) value (2, '2020-3-11 13:23:44','2020-4-11 13:23:44'); 
+
+
+insert into payment_service(payment_name,account_number) value ('Garanti Bank', '01234–12345678'); 
+insert into payment_service(payment_name,account_number) value ('Fiba Bank',  '01234–98352728'); 
+insert into payment_service(payment_name,account_number) value ('Deniz Bank',   '23465–98352728'); 
+insert into payment_service(payment_name,account_number) value ('Oktay Bank',   '23465–93423728'); 
+insert into payment_service(payment_name,account_number) value ('TEB Bank',   '23465–93423728'); 
  

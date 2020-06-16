@@ -46,9 +46,11 @@ public class ManageBooksController {
     }
 
 
-
     @GetMapping("/add-book")
     public String addBookButton(Model theModel, HttpSession session){
+
+
+
         makeFalseIsbnBool();
         // theModel.addAttribute("Currentisbn", isbnBool);
         session.setAttribute("Currentisbn", isbnBool);
@@ -190,6 +192,8 @@ public class ManageBooksController {
     Subcategory[] findAllSubcategories(
             @RequestParam(value = "selectedCatedoryId", required = true) int selectedCatedoryId, Model theModel, HttpSession session)
     {
+
+
         makeFalseIsbnBool();
         // theModel.addAttribute("Currentisbn", isbnBool);
         session.setAttribute("Currentisbn", isbnBool);
@@ -268,6 +272,8 @@ public class ManageBooksController {
     @GetMapping("/listbooks")
     public String manageBooksMainPage(Model theModel, @RequestParam(defaultValue = "0") int page, HttpSession session){
         // theModel.addAttribute("Currentisbn", isbnBool);
+
+
         session.setAttribute("Currentisbn", isbnBool);
         // to turn off error message for same ISBN number
 

@@ -8,6 +8,7 @@ import java.util.Optional;
 
 import javax.persistence.EntityManager;
 
+import com.BoomBook.Model.BookComment;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -206,15 +207,12 @@ public class BookDAOImp implements BookDAO {
         return books;
     }
 
+
     @Override
-    public Page<Book> findByTitle(String title, Pageable pageable) {
+    public Page<Book> findByTitle(String title, int year, float number, Pageable pageable) {
         return null;
     }
 
-    @Override
-    public Page<Book> findByTitleFloat(float number, Pageable pageable) {
-        return null;
-    }
 
     @Override
     public Page<Book> findBySubcategory(int id, Pageable pageable) {
@@ -228,6 +226,11 @@ public class BookDAOImp implements BookDAO {
 
     @Override
     public Page<Book> findCampaign(Pageable pageable) {
+        return null;
+    }
+
+    @Override
+    public Float bookRate(int bookId) {
         return null;
     }
 }

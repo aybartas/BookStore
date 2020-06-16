@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
+    <title>BoomBook Store</title>
     <meta charset="UTF-8">
     <!-- Css -->
     <link th:href="@{/user/css/bootstrap.min.css}" rel="stylesheet"/>
@@ -11,11 +12,11 @@
     <link th:href="@{/user/css/animate.min.css}" rel="stylesheet"/>
 
     <!-- Favicons -->
-    <link th:href="@{/user/img/boombook-logo.png}" rel="shortcut icon"></head>
-    <link th:href="@{/user/img/apple-touch-icon.png}" rel="apple-touch-icon"></head>
-    <link th:href="@{/user/img/apple-touch-icon-72x72.png}" sizes="72x72" rel="apple-touch-icon"></head>
-    <link th:href="@{/user/img/apple-touch-icon-114x114.png}" sizes="114x114" rel="apple-touch-icon"></head>
-    <link th:href="@{/user/css/theme.css}"  type="text/css" media="all" rel="stylesheet"></head>
+    <link th:href="@{/user/img/boombook-logo.png}" rel="shortcut icon"/>
+    <link th:href="@{/user/img/apple-touch-icon.png}" rel="apple-touch-icon"/>
+    <link th:href="@{/user/img/apple-touch-icon-72x72.png}" sizes="72x72" rel="apple-touch-icon"/>
+    <link th:href="@{/user/img/apple-touch-icon-114x114.png}" sizes="114x114" rel="apple-touch-icon"/>
+    <link th:href="@{/user/css/theme.css}"  type="text/css" media="all" rel="stylesheet"/>
 
 </head>
 
@@ -57,7 +58,8 @@
                                     <div class="logo-wrap text-center">
 
                                         <a th:href="@{/home/boombook}">
-                                            <img class="logo" style="position: relative;background-size: auto;"
+
+                                            <img id="blowingLogo" class="logo" style="position: relative;background-size: auto;"
                                                  th:src="@{/user/img/boombook-logo.png}" alt="logo">
 
                                         </a>
@@ -70,10 +72,11 @@
                                     <form class = "form-line" th:action="@{/searchpage/searchbutton}" th:object="${searchForm}" method="POST">
                                         <div style="width: 200%" class="row">
                                             <div class="col-md-9">
-                                                <input type="search" th:field="*{searchKey}" style="width: 115%; height: 54px;" placeholder="Search a book..." >
-                                            </div>
+
+                                                <input name="searchForm" th:value="*{searchKey}" type="search" style="width: 115%; height: 54px;" placeholder="Search a book..." >                                            </div>
                                             <div class="col-md-3">
-                                                <button type="submit" style="border-style: none; width: 70%; height: 54px;"><i class="fa fa-search" aria-hidden="true"></i></button>
+                                                <button type="submit" style="border-style: none; width: 70%; height: 54px;"><i class="icon icon_search" aria-hidden="true"></i></button>
+ 
                                             </div>
                                         </div>
                                     </form>
@@ -119,7 +122,9 @@
                                     <!-- search for mobile -->
                                     <li id="mobile-search" class="hidden-lg hidden-md">
                                         <form method="POST" th:action="@{/searchpage/searchbutton}" th:object="${searchForm}" class="mobile-search relative">
-                                            <input type="search" th:field="*{searchKey}" class="form-control" placeholder="Search...">
+
+                                            <input type="search" name="searchForm" th:value="*{searchKey}" class="form-control" placeholder="Search...">
+
                                             <button type="submit" class="search-button">
                                                 <i class="icon icon_search"></i>
                                             </button>
@@ -155,22 +160,18 @@
                                     </li> <!-- end categories -->
 
                                     <li class="dropdown">
-                                        <a href="#">FAQ</a>
-                                        <i class="fa fa-angle-down dropdown-toggle" data-toggle="dropdown"></i>
-                                        <ul class="dropdown-menu">
-                                            <li><a href="blog-standard.html">Shipment</a></li>
-                                            <li><a href="blog-single.html">Payment</a></li>
-                                        </ul>
+                                        <a th:href="@{/boombook/comparebooks}">COMPARE BOOKS</a>
+
                                     </li>
 
                                     <li class="dropdown">
-                                        <a href="#">BESTSELLERS</a>
+                                        <a th:href="@{#bestsellerbooks}">BESTSELLERS</a>
                                         <i class="fa fa-angle-down dropdown-toggle" data-toggle="dropdown"></i>
 
                                     </li>
 
                                     <li class="dropdown">
-                                        <a href="#">NEW ARRIVALS</a>
+                                        <a th:href="@{#newarrivalbooks}">NEW ARRIVALS</a>
                                         <i class="fa fa-angle-down dropdown-toggle" data-toggle="dropdown"></i>
 
                                     </li>
@@ -254,8 +255,8 @@
                                 <form class = "form-line" th:action="@{/searchpage/searchbutton}" th:object="${searchForm}" method="POST">
                                     <div style="width: 200%" class="row">
                                         <div class="col-md-9">
-                                            <input type="search" th:field="*{searchKey}" style="width: 115%; height: 54px;" placeholder="Search a book..." >
-                                        </div>
+
+                                            <input name="searchForm" th:value="*{searchKey}" type="search" style="width: 115%; height: 54px;" placeholder="Search a book..." >                                            </div>
                                         <div class="col-md-3">
                                             <button type="submit" style="border-style: none;width: 70%; height: 54px;"><i class="fa fa-search" aria-hidden="true"></i></button>
                                         </div>
@@ -264,19 +265,17 @@
 
                             </div>
 
-                            <!-- Cart MEMET DEGISTIRILECEK-->
+                            <!-- Cart -->
                             <div class="hidden-sm hidden-xs">
                                 <div>
-                                    <!-- bu kısımdaki style width ve marginler sayesinde profile buttonunun
-                                    fazlalığından kurtulmuş olduk. yüzde yüz olmasa da... -->
                                     <div class="col-md-6 dropdown" align="center" style="width: 150px; margin-width: 120px;height: 54px;margin-top: 45px; margin-left: 70px;" >
 
                                         <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown"> Profile &nbsp;
                                             <span class="caret"></span></button>
                                         <ul class="dropdown-menu">
-                                            <li><a href="#">Account</a></li>
-                                            <li><a href="#">Orders</a></li>
-                                            <li><a href="#">Order Status</a></li>
+                                            <li><a th:href="@{/user/profile}">Account</a></li>
+                                            <li><a th:href="@{/user/currentDeliveries}">Order Status</a></li>
+                                            <li><a th:href="@{/user/deliveryHistory}">Delivery History</a></li>
 
                                             <li><a th:href="@{/home/logout}">Log Out</a></li>
 
@@ -298,56 +297,50 @@
                                             <div class="nav-cart-container">
                                                 <div class="nav-cart-items">
 
-                                                    <div class="nav-cart-item clearfix">
+                                                    <div th:if="${session.username.getUserCart() != null}" th:each="carts:${session.username.getUserCart()}" class="nav-cart-item clearfix">
                                                         <div class="nav-cart-img">
-                                                            <a href="#">
-
+                                                            <a th:href="${carts.bookId.imageURL}">
                                                             </a>
                                                         </div>
                                                         <div class="nav-cart-title">
-                                                            <a href="#">
-                                                                Silver Sparrow
-                                                            </a>
+                                                            <a th:href="@{/product/productdetail/(bookId=${carts.bookId.id})}" th:text="${carts.bookId.title}"></a>
                                                             <div class="nav-cart-price">
-                                                                <span>1 x</span>
-                                                                <span>$9.99</span>
+                                                                <span th:text="${carts.count}+' x'"></span>
+                                                                <span th:text="'$'+${carts.getBookId().priceWithCampaign}"></span>
                                                             </div>
                                                         </div>
                                                         <div class="nav-cart-remove">
-                                                            <a href="#"><i class="icon icon_close"></i></a>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="nav-cart-item clearfix">
-                                                        <div class="nav-cart-img">
-                                                            <a href="#">
-
+                                                            <a th:href="@{/cart/removebooktocartinsearch/(deletedCartId=${carts.id},bookId=${(theBookDetail != null) ? theBookDetail.id : 0},
+                                                                                                          clickedGeneralCategory=${(param.clickedGeneralCategory != null) ? param.clickedGeneralCategory : 0},
+                                                                                                          clickedCampaignCategory=${(param.clickedCampaignCategory != null) ? param.clickedCampaignCategory : 0},
+                                                                                                          clickedCategoryId=${(param.clickedCategoryId != null) ? param.clickedCategoryId : 0},
+                                                                                                          sortedBy=${(param.sortedBy != null) ? param.sortedBy : 'title'},
+                                                                                                          clickedSubcategoryId=${(param.clickedSubcategoryId != null) ? param.clickedSubcategoryId : 0},
+                                                                                                          page=${(param.page != null) ? param.page : 0},
+                                                                                                          searchForm=${(param.searchForm != null) ? param.searchForm : ''},
+                                                                                                          isComeFrom=${#httpServletRequest.requestURI}
+                                                                                                          )}">
+                                                                <i class="icon icon_close"></i>
                                                             </a>
                                                         </div>
-                                                        <div class="nav-cart-title">
-                                                            <a href="#">
-                                                                Cross of Fire
-                                                            </a>
-                                                            <div class="nav-cart-price">
-                                                                <span>1 x</span>
-                                                                <span>$9.99</span>
-                                                            </div>
-                                                        </div>
-                                                        <div class="nav-cart-remove">
-                                                            <a href="#"><i class="icon icon_close"></i></a>
-                                                        </div>
                                                     </div>
+                                                    <p th:if="${session.username.totalCart == 0}"  style="text-align: center;">
+                                                        <b style="color: #979797;">
+                                                            Add a book to buy!
+                                                        </b>
+                                                        <br><br>
+                                                    </p>
 
                                                 </div> <!-- end cart items -->
 
                                                 <div class="nav-cart-summary">
                                                     <span>Total</span>
-                                                    <span class="total-price">$20</span>
+                                                    <span class="total-price" th:text="'$'+${session.username.totalCart}"></span>
                                                 </div>
 
                                                 <div class="nav-cart-actions mt-20">
-                                                    <a href="shop-cart.html" class="btn btn-md btn-dark"><span>Go to Cart</span></a>
-                                                    <a href="shop-checkout.html" class="btn btn-md btn-dark mt-10"><span>Buy Now</span></a>
+                                                    <a th:if="${session.username.totalCart != 0}" th:href="@{/checkout/checkoutstart}" class="btn btn-md btn-dark mt-10"><span>Buy Now</span></a>
+                                                    <a th:unless="${session.username.totalCart != 0}" class="btn btn-md btn-dark mt-10" style="background-color: #FAC48D"><span>Buy Now</span></a>
                                                 </div>
 
                                             </div>
@@ -380,6 +373,9 @@
                                 <li id="mobile-search" class="hidden-lg hidden-md">
                                     <form method="POST" th:action="@{/searchpage/searchbutton}" th:object="${searchForm}" class="mobile-search relative">
                                         <input type="search" th:field="*{searchKey}" class="form-control" placeholder="Search...">
+
+
+
                                         <button type="submit" class="search-button">
                                             <i class="icon icon_search"></i>
                                         </button>
@@ -415,22 +411,19 @@
                                 </li> <!-- end categories -->
 
                                 <li class="dropdown">
-                                    <a href="#">FAQ</a>
-                                    <i class="fa fa-angle-down dropdown-toggle" data-toggle="dropdown"></i>
-                                    <ul class="dropdown-menu">
-                                        <li><a href="blog-standard.html">Shipment</a></li>
-                                        <li><a href="blog-single.html">Payment</a></li>
-                                    </ul>
+
+                                    <a th:href="@{/boombook/comparebooks}">COMPARE BOOKS</a>
+
                                 </li>
 
                                 <li class="dropdown">
-                                    <a href="#">BESTSELLERS</a>
+                                    <a th:href="@{#bestsellerbooks}">BESTSELLERS</a>
                                     <i class="fa fa-angle-down dropdown-toggle" data-toggle="dropdown"></i>
 
                                 </li>
 
                                 <li class="dropdown">
-                                    <a href="#">NEW ARRIVALS</a>
+                                    <a th:href="@{#newarrivalbooks}">NEW ARRIVALS</a>
                                     <i class="fa fa-angle-down dropdown-toggle" data-toggle="dropdown"></i>
 
                                 </li>
@@ -438,16 +431,13 @@
                                 <li class="mobile-links">
                                     <ul>
                                         <li>
-                                            <a href="#">Giriş</a>
+                                            <a href="#">Login</a>
                                         </li>
                                         <li>
-                                            <a href="#">Hesabım</a>
+                                            <a href="#">Account</a>
                                         </li>
                                         <li>
                                             <a href="#">Cart</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">İstek Listem</a>
                                         </li>
                                     </ul>
                                 </li>

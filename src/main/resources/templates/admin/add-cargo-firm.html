@@ -118,43 +118,43 @@
                                 <li class="app-sidebar__heading">Dashboards</li>
                                 
                                 <li>
-                                    <a href="orders.html">
+                                    <a th:href="@{/viewandconfirmsales/listorders}">
                                         <i class="metismenu-icon pe-7s-cart"></i>
                                         Orders
                                     </a> 
                                 </li>
                                 <li>
-                                    <a href="manage-customer.html">
+                                    <a th:href="@{/managecustomers/listcustomers}">
                                         <i class="metismenu-icon pe-7s-users"></i>
                                         Manage Customer
                                     </a> 
                                 </li>
                                 <li>
-                                    <a href="manage-books.html">
+                                    <a th:href="@{/managebooks/listbooks}">
                                         <i class="metismenu-icon pe-7s-notebook"></i>
                                         Manage Books
                                     </a> 
                                 </li>
                                 <li>
-                                    <a href="manage-categories.html">
+                                    <a th:href="@{/managecategories/listcategories}">
                                         <i class="metismenu-icon pe-7s-photo-gallery"></i>
                                         Manage Categories
                                     </a> 
                                 </li>
                                 <li>
-                                    <a href="send-mail.html">
+                                    <a th:href="@{/managemails/listmails}">
                                         <i class="metismenu-icon pe-7s-mail"></i>
-                                        Send Mail
+                                        Show Mail
                                     </a> 
                                 </li>
                                 <li>
-                                    <a href="delivery-situations.html">
+                                    <a th:href="@{/viewdeliveries/listdeliveriessituations}">
                                         <i class="metismenu-icon pe-7s-map-2"></i>
                                         Delivery Situations
                                     </a> 
                                 </li>
                                  <li>
-                                    <a href="manage-cargo-firms.html">
+                                    <a th:href="@{/managecargofirms/listcargofirms}">
                                         <i class="metismenu-icon pe-7s-box2"></i>
                                         Manage Cargo Firms
                                     </a> 
@@ -245,9 +245,9 @@
                                                 </div></div>
                                             </div>
                                             <div class="position-relative row form-group"><label for="examplePhone" class="col-sm-2 col-form-label">Phone</label>
-                                                <div class="col-sm-10"><input th:field="*{phone}" name="email" id="examplePhone" placeholder="write phone number" type="tel" class="form-control" required>
+                                                <div class="col-sm-10"><input th:field="*{phone}" name="email" id="examplePhone" placeholder="write phone with XXXX XXX XX XX format" type="tel"  pattern="[0-9]{4} [0-9]{3} [0-9]{2} [0-9]{2}" class="form-control" required>
                                                 <div class="invalid-feedback">
-                                                    Please write a valid phone number.
+                                                    Please write phone number with given format (XXXX XXX XX XX)
                                                 </div></div>
                                             </div>
 

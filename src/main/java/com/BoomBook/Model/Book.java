@@ -57,6 +57,8 @@ public class Book {
     private float priceWithCampaign;
 
 
+
+
     @OneToOne(cascade = javax.persistence.CascadeType.ALL,mappedBy = "book")
     private Campaign campaign;
 

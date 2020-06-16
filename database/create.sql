@@ -25,8 +25,8 @@ create table if not exists Book(
     added_date DateTime DEFAULT CURRENT_TIMESTAMP,
     subjects varchar(600),
     count int,
-    price float,
-    price_with_campaign float,
+    price float(10,2),
+    price_with_campaign float(10,2),
     foreign key(subcategory_id) references Subcategory(id) on update cascade on delete set null
 );
     
@@ -45,12 +45,12 @@ create table if not exists Customer(
     customer_name varchar(255),
     phone varchar(255),
     email varchar(255),
-    customer_password varchar(255),
+    customer_password varchar(300),
     address varchar(255)
 );
  create table if not exists Page_Admin(
 	id int AUTO_INCREMENT PRIMARY KEY,
-    admin_password int,
+    admin_password varchar(300),
     email varchar(255)
  );
  
@@ -60,17 +60,19 @@ create table if not exists Customer(
     customer_id int,
     title varchar(255),
     content varchar(10000),
-    send_date datetime,
+    send_date DateTime DEFAULT CURRENT_TIMESTAMP,
     foreign key (page_admin_id) references Page_Admin(id) ON DELETE CASCADE ON UPDATE CASCADE,
     foreign key (customer_id) references Customer(id) ON DELETE CASCADE ON UPDATE CASCADE
  );
  
  
 create table if not exists Book_Comment(
+	id int AUTO_INCREMENT PRIMARY KEY,
 	book_id int,
     customer_id int,
     rate float,
     user_comment varchar(600),
+    added_date DateTime DEFAULT CURRENT_TIMESTAMP,
 	foreign key (book_id) references Book(id) ON DELETE CASCADE ON UPDATE CASCADE,
     foreign key (customer_id) references Book(id) ON DELETE CASCADE ON UPDATE CASCADE
 );
@@ -78,7 +80,7 @@ create table if not exists Book_Comment(
 create table if not exists Payment_Service(
 	id int AUTO_INCREMENT PRIMARY KEY,
     payment_name varchar(255),
-    account_number int
+    account_number varchar(40)
 );
 
 create table if not exists Courier_Company(
@@ -89,15 +91,28 @@ create table if not exists Courier_Company(
     price float
 );
 
+create table if not exists billing_information(
+	id int AUTO_INCREMENT PRIMARY KEY,
+	customer_id int ,
+    customer_name varchar(255),
+    phone varchar(255),
+    email varchar(255), 
+    address varchar(255),
+    foreign key (customer_id) references customer(id) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
 create table if not exists Purchase_Request(
 	id int AUTO_INCREMENT PRIMARY KEY,
     payment_service_id int,
     courier_company_id int, 
-    purchase_date datetime,
+    billing_information_id int,
+    purchase_date datetime DEFAULT CURRENT_TIMESTAMP,
     is_confirmed int,
     foreign key (payment_service_id) references Payment_Service(id) ON DELETE CASCADE ON UPDATE CASCADE,
-    foreign key (courier_company_id) references Courier_Company(id) ON DELETE CASCADE ON UPDATE CASCADE
+    foreign key (courier_company_id) references Courier_Company(id) ON DELETE CASCADE ON UPDATE CASCADE,
+    foreign key (billing_information_id) references billing_information(id) ON DELETE CASCADE ON UPDATE CASCADE
 );
+
 
 create table if not exists Cart(
 	id int AUTO_INCREMENT PRIMARY KEY,
@@ -122,7 +137,9 @@ create table if not exists In_Cargo(
 
 DELIMITER $$ 
        -- DEFAULT ROW FOR Subcategory --
-		insert into subcategory(title) values ('General');
+       
+	insert into category(id,title) values (-1,'General'); 
+	insert into subcategory(title,category_id) values ('General',-1);
 
 	create trigger deleteSubcategoryTrigger after delete on subcategory
 		for each row
@@ -144,9 +161,30 @@ DELIMITER $$
 			END IF;
 		end$$
         
+	-- When below triggers are running, because of the book is updated, i create this trigger. Also it can be used for after update a a price
+	CREATE TRIGGER updatepricewithcampaign BEFORE update ON Book 
+    FOR EACH ROW
+		begin
+			IF NEW.price_with_campaign <> NEW.price THEN
+				SET NEW.price_with_campaign = NEW.price - NEW.price * (SELECT distinct discount_percentage FROM book,campaign WHERE NEW.id = book_id)/100;
+			END IF;
+        end$$
+        
 	CREATE TRIGGER setpricewithcampaignaftercampaign after INSERT ON Campaign 
     FOR EACH ROW
 		begin
-			update Book set price_with_campaign = price - price * new.discount_percentage/100 where new.book_id = book.id;
-		end$$
+			update Book as b set b.price_with_campaign = b.price - b.price * new.discount_percentage/100 where b.id =  new.book_id;
+		end$$ 
+	
+	CREATE TRIGGER setpricewithcampaignafterupdatecampaign after UPDATE ON Campaign 
+    FOR EACH ROW
+		begin
+			update Book set price_with_campaign = price - price * new.discount_percentage/100 where book.id =  new.book_id;
+		end$$ 
+        
+	CREATE TRIGGER deletepricewithcampaignafterupdatecampaign after Delete ON Campaign 
+    FOR EACH ROW
+		begin
+			update Book set price_with_campaign = price where book.id =  old.book_id;
+		end$$ 
 DELIMITER ;

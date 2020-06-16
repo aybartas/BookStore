@@ -10,7 +10,7 @@ public class PageAdmin {
     @Column(name="id")
     private int id;
 
-    @Column(name="password")
+    @Column(name="admin_password")
     private String password;
 
     @Column(name="email")

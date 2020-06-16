@@ -40,7 +40,14 @@
   </div>
 
   <main class="content-wrapper oh">
-
+    <div th:if="${purchaseIsSuccessfull}" style="text-align: center;" class="alert alert-success fade in alert-dismissible" role="alert">
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+      <h5><strong>Successfully Purchased! &nbsp;&nbsp;</strong>We received your order. You can relax now and dream about books until shipping is received you.</h5>
+    </div>
+    <div th:if="${cartIsSuccessfull}" style="text-align: center;" class="alert alert-success fade in alert-dismissible" role="alert">
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+      <h5><strong>Successfully Added to Cart! &nbsp;&nbsp;</strong>Now you can continue shopping or make purchasing.</h5>
+    </div>
     <div th:insert="user/navbar :: navbar"></div>
 
     <!-- Navigation-->
@@ -53,6 +60,7 @@
           <div class="flexslider" id="flexslider-hero">
             <ul class="slides clearfix">
 
+
               <li th:each="campaign: ${theCampaigns}">
 
                 <img th:src="${campaign.imageURL}" alt="">
@@ -62,7 +70,7 @@
                     <h1 th:text="${campaign.note}" class="hero-heading white "></h1>
                     
                   </div>
-                  <a href="#" class="btn btn-lg btn-warning"  style="top:0px;margin-top: 10%;" ><span>Learn More</span></a>
+                  <a th:href="@{/searchpage/listbooks/(clickedCampaignCategory=1)}" class="btn btn-lg btn-warning"  style="top:0px;margin-top: 10%;" ><span>Learn More</span></a>
                 </div>
               </li>
 
@@ -72,6 +80,7 @@
       </div> 
         
     </section> <!-- end hero slider -->
+
 
     <div th:if="${session.username.loggedin}">
     <!-- Recommended For You -->
@@ -90,7 +99,7 @@
             <div th:each="theRecommendedBook: ${theRecommendedBooks}" class="col-md-3 col-xs-12 animated-from-left">
               <div class="product-item">
                 <div class="product-img">
-                  <a href="#">
+                  <a th:href="@{/product/productdetail/(bookId=${theRecommendedBook.id})}">
                     <img th:src="${theRecommendedBook.imageURL}" style="height: 350px;" alt="">
                   </a>
                   <div class="product-label">
@@ -121,13 +130,15 @@
                 </ins>
               </span>
                   </div>
-                  <button type="button" class="btn btn-success" style="background-color: #F26722;">Add to Cart</button>
+                  <a th:if="${session.username.loggedin}" th:href="@{/cart/addbooktocartinsearch/(addedbookID=${theRecommendedBook.id},bookId=${0})}" class="btn btn-md btn-color"><span>Add to Cart</span></a>
+                  <a th:unless="${session.username.loggedin}" th:href="@{/home/login}" class="btn btn-md btn-color"><span>Add to Cart</span></a>
 
                 </div>
 
               </div>
 
             </div>
+
 
           </div> <!-- end row -->
         </div>
@@ -142,16 +153,17 @@
 
         <div class="row heading-row">
           <div class="col-md-12 text-center">
-            <h2 class="heading uppercase" style="text-align: left;"><b>BEST SELLERS</b></h2>
+            <h2 id="bestsellerbooks" class="heading uppercase" style="text-align: left;"><b>BEST SELLERS</b></h2>
           </div>
         </div>
 
         <div class="row">
 
+
           <div th:each="theBestSeller: ${theBestSellerBooks}" class="col-md-3 col-xs-12 animated-from-left">
             <div class="product-item">
               <div class="product-img">
-                <a href="#">
+                <a  th:href="@{/product/productdetail/(bookId=${theBestSeller.id})}">
                   <img th:src="${theBestSeller.imageURL}" style="height: 350px;" alt="">
                 </a>
                 <div class="product-label">
@@ -166,6 +178,7 @@
               </div>
 
               <div class="product-details">
+
 
                 <div class="text-center" >
                   <h3 style="width:99%;overflow: hidden;text-overflow: ellipsis;white-space: nowrap" th:text="${theBestSeller.title}">
@@ -182,7 +195,8 @@
                 </ins>
               </span>
                 </div>
-                <button type="button" class="btn btn-success" style="background-color: #F26722;">Add to Cart</button>
+                <a th:if="${session.username.loggedin}" th:href="@{/cart/addbooktocartinsearch/(addedbookID=${theBestSeller.id},bookId=${0})}" class="btn btn-md btn-color"><span>Add to Cart</span></a>
+                <a th:unless="${session.username.loggedin}" th:href="@{/home/login}"  class="btn btn-md btn-color"><span>Add to Cart</span></a>
 
               </div>
 
@@ -202,16 +216,17 @@
 
         <div class="row heading-row">
           <div class="col-md-12 text-center">
-            <h2 class="heading uppercase" style="text-align: left;"><b>NEW ARRIVALS</b></h2>
+            <h2 class="heading uppercase" id="newarrivalbooks" style="text-align: left;"><b>NEW ARRIVALS</b></h2>
           </div>
         </div>
 
         <div class="row">
 
+          <form>
           <div th:each="theNewBook: ${theNewBooks}" class="col-md-3 col-xs-12 animated-from-left">
             <div class="product-item">
               <div class="product-img">
-                <a href="#">
+                <a th:href="@{/product/productdetail/(bookId=${theNewBook.id})}">
                   <img th:src="${theNewBook.imageURL}" style="height: 350px;" alt="">
                </a>
                <div class="product-label">
@@ -220,13 +235,14 @@
                 <div class="product-actions"  style=" pointer-events: none;">
                   <a href="#" class="product-add-to-compare"  data-toggle="tooltip" data-placement="bottom" title="Add to compare">
                     <i class="fa fa-exchange"></i>
-                  </a>           
+
+                  </a>
                 </div>
                 <a href="#" class="product-quickview" style=" pointer-events: none;">View Details</a>
               </div>
 
               <div class="product-details">
-               
+
               <div class="text-center" >
                 <h3 style="width:99%;overflow: hidden;text-overflow: ellipsis;white-space: nowrap" th:text="${theNewBook.title}">
 
@@ -239,36 +255,34 @@
                 <ins>
                   <span th:text="${theNewBook.price}+' $'" style="font-size: 25px;" class="ammount"></span>
                   <br><br>
-                </ins>  
+                </ins>
               </span>
             </div>
-                <button type="button" class="btn btn-success" style="background-color: #F26722;">Add to Cart</button>
 
-              </div>                      
+                <a th:if="${session.username.loggedin}" th:href="@{/cart/addbooktocartinsearch/(addedbookID=${theNewBook.id},bookId=${0})}" class="btn btn-md btn-color"><span>Add to Cart</span></a>
+                <a th:unless="${session.username.loggedin}" th:href="@{/home/login}" class="btn btn-md btn-color"><span>Add to Cart</span></a>
+              </div>
           
+
             </div>
-         
+
           </div>
+
+
+
+          </form>
+
 
         </div> <!-- end row -->
       </div>
-    </section> <!-- end new Arrival -->  
+    </section> <!-- end new Arrival -->
 
-        
+
     <!-- Footer Type-1 -->
     <footer class="footer footer-type-1 bg-white">
 
-      <div class="bottom-footer bg-white">
-        <div class="container">
-          
-            <div class="col-sm-4 copyright sm-text-center">
-              <span>
-               <b>&copy;</b> <img style="width: 102px;" th:src="@{/user/img/boom-header.png}"> <b>2020. All Rights Reserved.</b>
-              </span>
-            </div>
+      <div th:insert="user/footer :: footer"></div>
 
-        </div>
-      </div> <!-- end bottom footer -->
     </footer> <!-- end footer -->
 
   </main> <!-- end main container -->

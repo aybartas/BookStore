@@ -223,4 +223,22 @@ public class CustomerDAOImp implements CustomerDAO {
         return customers;
     }
 
+    @Override
+ 
+
+    public Page<Customer> findByCustomerNameOrEmail(String name, Pageable pageable) {
+        return null;
+    }
+
+ 
+    public Customer isCustomerMadeComment(int userId, int bookId) {
+        return null;
+    }
+
+    @Override
+    public List<Customer> isCustomerPurchaseBook(int userId, int bookId) {
+  
+        return null;
+    }
+
 }

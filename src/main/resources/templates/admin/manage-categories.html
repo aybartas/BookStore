@@ -120,43 +120,43 @@
                     <li class="app-sidebar__heading">Dashboards</li>
 
                     <li>
-                        <a href="orders.html">
+                        <a th:href="@{/viewandconfirmsales/listorders}">
                             <i class="metismenu-icon pe-7s-cart"></i>
                             Orders
                         </a>
                     </li>
                     <li>
-                        <a href="manage-customer.html">
+                        <a th:href="@{/managecustomers/listcustomers}">
                             <i class="metismenu-icon pe-7s-users"></i>
                             Manage Customer
                         </a>
                     </li>
                     <li>
-                        <a href="manage-books.html">
+                        <a th:href="@{/managebooks/listbooks}">
                             <i class="metismenu-icon pe-7s-notebook"></i>
                             Manage Books
                         </a>
                     </li>
                     <li>
-                        <a href="manage-categories.html">
+                        <a th:href="@{/managecategories/listcategories}">
                             <i class="metismenu-icon pe-7s-photo-gallery"></i>
                             Manage Categories
                         </a>
                     </li>
                     <li>
-                        <a href="send-mail.html">
+                        <a th:href="@{/managemails/listmails}">
                             <i class="metismenu-icon pe-7s-mail"></i>
-                            Send Mail
+                            Show Mail
                         </a>
                     </li>
                     <li>
-                        <a href="delivery-situations.html">
+                        <a th:href="@{/viewdeliveries/listdeliveriessituations}">
                             <i class="metismenu-icon pe-7s-map-2"></i>
                             Delivery Situations
                         </a>
                     </li>
                     <li>
-                        <a href="manage-cargo-firms.html">
+                        <a th:href="@{/managecargofirms/listcargofirms}">
                             <i class="metismenu-icon pe-7s-box2"></i>
                             Manage Cargo Firms
                         </a>
@@ -302,18 +302,74 @@
                         </div>
                     </div>
                 </div>
+            </div>
 
-                <div class="d-xl-none d-lg-block col-md-6 col-xl-4">
-                    <div class="card mb-3 widget-content bg-premium-dark">
-                        <div class="widget-content-wrapper text-white">
-                            <div class="widget-content-left">
-                                <div class="widget-heading">Products Sold</div>
-                                <div class="widget-subheading">Revenue streams</div>
-                            </div>
-                            <div class="widget-content-right">
-                                <div class="widget-numbers text-warning"><span>$14M</span></div>
+            <div th:if="${session.CRUD}">
+
+                <div th:unless="${session.nameError}">
+                    <div th:unless="${session.subcategoryNameError}">
+                        <div th:unless="${session.areSubcategoryAndCategoryNamesSame}">
+                            <div th:unless="${session.areSubcategoryAndCategoryNamesSameForCategory}">
+                                <div class="alert alert-success" role="alert">
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                    <h4 class="alert-heading">The category/subcategory added/updated successfuly!</h4>
+                                    <p>Saving the category/subcategory process is succesfull !</p>
+                                    <hr>
+                                    <p class="mb-0">You can update category/subcategory via "update" button</p>
+
+                                </div>
                             </div>
                         </div>
+                    </div>
+                </div>
+
+                <div th:if="${session.nameError}">
+                    <div class="alert alert-danger" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <h4 class="alert-heading">NAME ERROR!</h4>
+                        <p>The category you are intended to add has the same NAME with other category</p>
+                        <hr>
+                        <p class="mb-0">Please use "update" button to change this category information</p>
+
+                    </div>
+                </div>
+
+                <div th:if="${session.subcategoryNameError}">
+                    <div class="alert alert-danger" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <h4 class="alert-heading">NAME ERROR!</h4>
+                        <p>The subcategory you are intended to add has the same NAME with other subcategory</p>
+                        <hr>
+                        <p class="mb-0">Please use "update" button to change this subcategory information</p>
+
+                    </div>
+                </div>
+
+                <div th:if="${session.areSubcategoryAndCategoryNamesSame}">
+                    <div class="alert alert-danger" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <h4 class="alert-heading">TITLE ERROR!</h4>
+                        <p>The subcategory you are intended to add/update has the same TITLE with its cagetory</p>
+                        <hr>
+                    </div>
+                </div>
+
+                <div th:if="${session.areSubcategoryAndCategoryNamesSameForCategory}">
+                    <div class="alert alert-danger" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <h4 class="alert-heading">TITLE ERROR!</h4>
+                        <p>The category you are intended to add/update has the same TITLE with one of its subcagetory</p>
+                        <hr>
                     </div>
                 </div>
             </div>
@@ -558,12 +614,12 @@
 
                         <div class="d-block text-center card-footer">
                             <div style="display: inline-block;text-align:center">
-                                <ul class="pagination" style="margin-left:auto;margin-right:auto;">
+                                <!--<ul class="pagination" style="margin-left:auto;margin-right:auto;">
                                     <li class="page-item active"
                                         th:each="i : ${#numbers.sequence(0,(thecategories.getTotalPages())-1)}" >
                                         <a th:href="@{/managecategories/listcategories/(page=${i})}" th:text="${i}" class="page-link" aria-label="Previous"> </a>
                                     </li>
-                                </ul>
+                                </ul> -->
                             </div>
                         </div>
                     </div>
@@ -571,6 +627,7 @@
             </div>
 
         </div>
+        <!--
         <div class="app-wrapper-footer">
             <div class="app-footer">
                 <div class="app-footer__inner">
@@ -607,7 +664,9 @@
                     </div>
                 </div>
             </div>
-        </div>    </div>
+        </div>
+        -->
+    </div>
         <script src="http://maps.google.com/maps/api/js?sensor=true"></script>
     </div>
 </div>
